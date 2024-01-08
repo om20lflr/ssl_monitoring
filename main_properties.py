@@ -5,6 +5,10 @@ if DEBUG:
 else:
     CELERY_SERVER = '10.168.13.212'
 
+#Celery config
+
+CELERY_PORT ="6379"
+
 #git config
 GIT_USER = 'om'
 GIT_EMAIL = 'om@sinonet.ph'

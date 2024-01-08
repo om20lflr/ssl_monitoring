@@ -3,18 +3,11 @@ from datetime import datetime, timedelta
 import ssl
 import socket
 from celery import shared_task
+from main_properties import CELERY_SERVER, CELERY_PORT
 
-CELERY_BROKER = 'redis://127.0.0.1:6379'
-CELERY_BACKEND = CELERY_BROKER
-CELERY_QUEUE = "sslMonitoringQueue"
-CELERY_CONCURRENCY = 6
-from celery import Celery
-from datetime import datetime, timedelta
-import ssl
-import socket
-from celery import shared_task
 
-CELERY_BROKER = 'redis://127.0.0.1:6379'
+
+CELERY_BROKER = 'redis://{}:{}'.format(CELERY_SERVER, CELERY_PORT)
 CELERY_BACKEND = CELERY_BROKER
 CELERY_QUEUE = "sslMonitoringQueue"
 CELERY_CONCURRENCY = 6
