@@ -4,7 +4,8 @@ import ssl
 import socket
 from celery import shared_task
 from main_properties import CELERY_SERVER, CELERY_PORT
-
+import logging, os, json
+from properties import MAIN_DIR
 
 
 CELERY_BROKER = 'redis://{}:{}'.format(CELERY_SERVER, CELERY_PORT)
@@ -13,10 +14,27 @@ CELERY_QUEUE = "sslMonitoringQueue"
 CELERY_CONCURRENCY = 6
 CELERY_HOSTNAME = "sslMonitoringHostname"
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
+logpath = "/var/log/cp_argus/{}".format(MAIN_DIR)
+if not os.path.exists(logpath):
+    os.makedirs(logpath)
 
+def setup_logging():
+    appname = MAIN_DIR
+    # filename = "{}-{}.log".format(appname, datetime.now().strftime("%Y-%m-%d"))
+    filename = "{}.log".format(appname)
+    logfile = os.path.join(logpath, filename)
+    logging.basicConfig(
+        level=logging.DEBUG,  # Set the desired log level (e.g., logging.DEBUG, logging.INFO)
+        format='%(asctime)s - %(levelname)s - %(message)s',  # Set the log message format
+        filename=logfile,  # Set the log file name
+        filemode='a'  # Set the file mode ('w' for write, 'a' for append)
+    )
+setup_logging()
 
 @app.task()
 def expirationDate(domain_text, port=443):
+    logging.debug("#####" * 20)
+    logging.info("WORKER: expirationDate")
     try:
         # Split my domain_text
         domains = domain_text.split('\n')
@@ -26,16 +44,16 @@ def expirationDate(domain_text, port=443):
         for domain in domains:
             domain = domain.strip()
             if domain:
-                print(f"Checking domain: {domain}")
+                logging.info(f"Checking domain: {domain}")
                 result = check_single_domain(domain, port)
-                print(f"Result for {domain}: {result}")
+                logging.info(f"Result for {domain}: {result}")
                 if 'error' not in result:
                     results.append(result)
 
-        print(f"Results: {results}")
+        logging.info(f"Results: {results}")
         return results
     except Exception as e:
-        print(f"Error in expirationDate: {str(e)}")
+        logging.info(f"Error in expirationDate: {str(e)}")
         return {
             'error': f"Error checking SSL certificates: {str(e)}"
         }
@@ -68,7 +86,7 @@ def daysLeft(expiration_dates):
         # Assuming you want to use the first expiration date from the list
         expiration_date_str = expiration_dates[0]
 
-        print(f"Received expiration date string: {expiration_date_str}")
+        logging.info(f"Received expiration date string: {expiration_date_str}")
 
         # List of possible date formats
         date_formats = ['%Y-%m-%d', '%b %d %H:%M:%S %Y %Z', 'other_format']
@@ -86,7 +104,7 @@ def daysLeft(expiration_dates):
         days_left = (expiration_date - today).days
         days_left_str = str(days_left)
 
-        print(f"Days left: {days_left_str}")
+        logging.info(f"Days left: {days_left_str}")
         return days_left_str
     except Exception as e:
         print(f"Error in daysLeft: {str(e)}")
