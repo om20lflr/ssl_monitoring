@@ -3,7 +3,7 @@ import os
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MAIN_DIR = 'dns-manager'
+MAIN_DIR = 'ssl_monitoring'
 
 #celery and redis config
 CELERY_BROKER = 'redis://{}/0'.format(CELERY_SERVER)
