@@ -1,18 +1,12 @@
-from celery import Celery
-from datetime import datetime, timedelta
+from celery import Celery, shared_task
+from datetime import datetime
 import ssl
 import socket
-from celery import shared_task
-from main_properties import CELERY_SERVER, CELERY_PORT
-import logging, os, json
-from properties import MAIN_DIR
 
 
-CELERY_BROKER = 'redis://{}:{}'.format(CELERY_SERVER, CELERY_PORT)
-CELERY_BACKEND = CELERY_BROKER
-CELERY_QUEUE = "sslMonitoringQueue"
-CELERY_CONCURRENCY = 6
-CELERY_HOSTNAME = "sslMonitoringHostname"
+import logging, os
+from properties import MAIN_DIR,CELERY_BROKER, CELERY_BACKEND
+
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
 logpath = "/var/log/cp_argus/{}".format(MAIN_DIR)
 if not os.path.exists(logpath):
@@ -29,7 +23,7 @@ def setup_logging():
         filename=logfile,  # Set the log file name
         filemode='a'  # Set the file mode ('w' for write, 'a' for append)
     )
-setup_logging()
+    setup_logging()
 
 @app.task()
 def expirationDate(domain_text, port=443):
