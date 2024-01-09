@@ -45,9 +45,9 @@ def expirationDate(domain_text, port=443):
         return results
     except Exception as e:
         logging.info(f"Error in expirationDate: {str(e)}")
-        return {
+        return [{
             'error': f"Error checking SSL certificates: {str(e)}"
-        }
+        } for domain in domains if domain.strip()]
 def check_single_domain(domain, port):
     try:
         # Connect to the server and obtain the SSL certificate
