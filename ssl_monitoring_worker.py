@@ -53,6 +53,7 @@ def check_single_domain(domain, port):
         # Connect to the server and obtain the SSL certificate
         context = ssl.create_default_context()
         with socket.create_connection((domain, port)) as sock:
+            logging.info(f"Domain: {domain}")
             with context.wrap_socket(sock, server_hostname=domain) as ssock:
                 cert = ssock.getpeercert()
 
