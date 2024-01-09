@@ -1,11 +1,9 @@
-from celery import Celery, shared_task
+from celery import Celery
 from datetime import datetime
 import ssl
 import socket
-
-
 import logging, os
-from properties import MAIN_DIR,CELERY_BROKER, CELERY_BACKEND
+from properties import MAIN_DIR, CELERY_BROKER, CELERY_BACKEND
 
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
 logpath = "/var/log/cp_argus/{}".format(MAIN_DIR)
@@ -14,7 +12,6 @@ if not os.path.exists(logpath):
 
 def setup_logging():
     appname = MAIN_DIR
-    # filename = "{}-{}.log".format(appname, datetime.now().strftime("%Y-%m-%d"))
     filename = "{}.log".format(appname)
     logfile = os.path.join(logpath, filename)
     logging.basicConfig(
@@ -32,7 +29,7 @@ def expirationDate(domain_text, port=443):
     try:
         # Split my domain_text
         domains = domain_text.split('\n')
-        print(f"{domain_text}")
+        logging.info(f"{domain_text}")
 
         results = []
         for domain in domains:
@@ -77,6 +74,10 @@ def daysLeft(expiration_dates):
         if not expiration_dates or not isinstance(expiration_dates, list):
             raise ValueError("Invalid expiration dates list")
 
+            # If only one date is provided, convert it to a list
+        if not isinstance(expiration_dates[0], list):
+            expiration_dates = [expiration_dates[0]]
+
         # Assuming you want to use the first expiration date from the list
         expiration_date_str = expiration_dates[0]
 
@@ -101,7 +102,7 @@ def daysLeft(expiration_dates):
         logging.info(f"Days left: {days_left_str}")
         return days_left_str
     except Exception as e:
-        print(f"Error in daysLeft: {str(e)}")
+        logging.info(f"Error in daysLeft: {str(e)}")
         return {
             'error': f"Error calculating days left: {str(e)}"
         }
