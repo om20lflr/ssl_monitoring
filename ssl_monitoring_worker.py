@@ -63,6 +63,12 @@ def check_single_domain(domain, port):
             expiration_date_str = expiration_date.strftime('%Y-%m-%d')
         return expiration_date_str
 
+    except socket.gaierror as e:
+        return {
+            'domain': domain,
+            'error': f"Error checking SSL certificate for {domain}: DNS resolution failed - {str(e)}"
+        }
+
     except Exception as e:
         return {
             'domain': domain,
