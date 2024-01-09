@@ -74,10 +74,6 @@ def daysLeft(expiration_dates):
         if not expiration_dates or not isinstance(expiration_dates, list):
             raise ValueError("Invalid expiration dates list")
 
-            # If only one date is provided, convert it to a list
-        if not isinstance(expiration_dates[0], list):
-            expiration_dates = [expiration_dates[0]]
-
         # Assuming you want to use the first expiration date from the list
         expiration_date_str = expiration_dates[0]
 
