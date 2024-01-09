@@ -45,15 +45,14 @@ def expirationDate(domain_text, port=443):
         return results
     except Exception as e:
         logging.info(f"Error in expirationDate: {str(e)}")
-        return [{
+        return {
             'error': f"Error checking SSL certificates: {str(e)}"
-        } for domain in domains if domain.strip()]
+        }
 def check_single_domain(domain, port):
     try:
         # Connect to the server and obtain the SSL certificate
         context = ssl.create_default_context()
         with socket.create_connection((domain, port)) as sock:
-            logging.info(f"Domain: {domain}")
             with context.wrap_socket(sock, server_hostname=domain) as ssock:
                 cert = ssock.getpeercert()
 
@@ -63,12 +62,6 @@ def check_single_domain(domain, port):
             expiration_date = datetime.strptime(expiration_date_str, '%b %d %H:%M:%S %Y %Z')
             expiration_date_str = expiration_date.strftime('%Y-%m-%d')
         return expiration_date_str
-
-    except socket.gaierror as e:
-        return {
-            'domain': domain,
-            'error': f"Error checking SSL certificate for {domain}: DNS resolution failed - {str(e)}"
-        }
 
     except Exception as e:
         return {
