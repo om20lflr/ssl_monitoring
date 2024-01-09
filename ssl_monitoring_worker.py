@@ -74,6 +74,7 @@ def check_single_domain(domain, port):
 @app.task()
 def daysLeft(expiration_dates):
     try:
+        logging.info(f"this is the expiration date: {expiration_dates}")
         if not expiration_dates or not isinstance(expiration_dates, list):
             raise ValueError("Invalid expiration dates list")
 
