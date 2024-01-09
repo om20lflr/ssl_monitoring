@@ -58,6 +58,7 @@ def check_single_domain(domain, port):
 
         # Extract expiration date from the certificate
         expiration_date_str = cert['notAfter']
+        logging.info(f"Raw expiration date string for {domain}: {expiration_date_str}, type: {type(expiration_date_str)}")
         if isinstance(expiration_date_str, str):
             expiration_date = datetime.strptime(expiration_date_str, '%b %d %H:%M:%S %Y %Z')
             expiration_date_str = expiration_date.strftime('%Y-%m-%d')
