@@ -75,9 +75,10 @@ def check_single_domain(domain, port):
 def daysLeft(expiration_dates):
     try:
         logging.info(f"this is the expiration date: {expiration_dates}")
-        if not expiration_dates or not isinstance(expiration_dates, list):
-            raise ValueError("Invalid expiration dates list")
+        if not isinstance(expiration_dates, list):
+            expiration_dates = [expiration_dates]
 
+        logging.info(f"Converted expiration_dates: {expiration_dates}")
         # Assuming you want to use the first expiration date from the list
         expiration_date_str = expiration_dates[0]
 
