@@ -68,6 +68,9 @@ def check_single_domain(domain, port):
             'domain': domain,
             'error': f"Error checking SSL certificate for {domain}: {str(e)}"
         }
+
+    except socket.gaierror as e:
+        raise Exception(f"Error checking SSL certificate for {domain}: DNS resolution failed - {str(e)}")
 @app.task()
 def daysLeft(expiration_dates):
     try:
