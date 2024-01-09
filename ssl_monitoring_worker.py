@@ -42,7 +42,7 @@ def expirationDate(domain_text, port=443):
                     results.append(result)
 
         logging.info(f"Results: {results}")
-        return [result for result in results if 'error' not in result]
+        return results
     except Exception as e:
         logging.info(f"Error in expirationDate: {str(e)}")
         return {
