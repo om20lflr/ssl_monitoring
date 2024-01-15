@@ -4,6 +4,7 @@ import ssl
 import socket
 import logging, os
 from properties import MAIN_DIR, CELERY_BROKER, CELERY_BACKEND
+import sys
 
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
 logpath = "/var/log/cp_argus/{}".format(MAIN_DIR)
@@ -107,3 +108,19 @@ def daysLeft(expiration_dates):
         return {
             'error': f"Error calculating days left: {str(e)}"
         }
+def computeDays(Domain):
+    value =daysLeft(expirationDate(Domain))
+
+    if isinstance(value, str):
+        logging.info("The value is an integer.")
+        return int(value)
+    else:
+        logging.info("The value is not an integer.")
+        return 0
+
+
+
+
+if '__main__' == __name__:
+    arguments = sys.argv[1:]
+    print(computeDays(arguments))
