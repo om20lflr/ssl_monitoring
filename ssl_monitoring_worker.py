@@ -110,7 +110,6 @@ def daysLeft(expiration_dates):
         }
 def computeDays(Domain):
     value =daysLeft(expirationDate(Domain))
-    print(value)
     if isinstance(value, str):
         logging.info("The value is an integer.")
 
