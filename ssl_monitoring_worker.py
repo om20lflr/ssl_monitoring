@@ -126,5 +126,6 @@ def computeDays(Domain):
 
 
 if '__main__' == __name__:
-    arguments = sys.argv[1:]
+    arguments = sys.argv[1]
+    print(arguments)
     print(computeDays(arguments))
