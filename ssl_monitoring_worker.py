@@ -113,12 +113,10 @@ def computeDays(Domain):
     print(value)
     if isinstance(value, str):
         logging.info("The value is an integer.")
-        print("The value is an integer.")
 
         return int(value)
     else:
         logging.info("The value is not an integer.")
-        print("The value is an integer.")
 
         return 0
 
@@ -127,5 +125,4 @@ def computeDays(Domain):
 
 if '__main__' == __name__:
     arguments = sys.argv[1]
-    print(arguments)
     print(computeDays(arguments))
