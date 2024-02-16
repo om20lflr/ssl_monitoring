@@ -4,16 +4,17 @@ import os
 import sys
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
-from lib.properties import SSL_DB_CRED, MAIN_DIR, CELERY_BROKER, CELERY_BACKEND
+from lib.properties import SSL_DB_CRED, CELERY_BROKER, CELERY_BACKEND
+
 
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
-logpath = f"/var/log/cp_argus/{MAIN_DIR}/ssl_update"
+logpath = f"/var/log/cp_argus/ssl_update"
 
 if not os.path.exists(logpath):
     os.makedirs(logpath)
 
 def setup_logging():
-    appname = MAIN_DIR
+    appname = logpath
     filename = f"{appname}.log"
     logfile = os.path.join(logpath, filename)
     logging.basicConfig(
