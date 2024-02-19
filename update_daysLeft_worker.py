@@ -2,7 +2,14 @@ import logging
 import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
-from lib.properties import SSL_DB_CRED
+
+
+SSL_DB_CRED = {
+    'host': 'your_database_host',
+    'user': 'your_database_user',
+    'password': 'your_database_password',
+    'database': 'your_database_name'
+}
 
 logpath = f"/var/log/cp_argus/ssl_update"
 
