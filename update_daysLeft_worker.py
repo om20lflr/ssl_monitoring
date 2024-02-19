@@ -1,13 +1,9 @@
-from celery import Celery
 import logging
 import os
-import sys
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
-from lib.properties import SSL_DB_CRED, CELERY_BROKER, CELERY_BACKEND
+from lib.properties import SSL_DB_CRED
 
-
-app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
 logpath = f"/var/log/cp_argus/ssl_update"
 
 if not os.path.exists(logpath):
