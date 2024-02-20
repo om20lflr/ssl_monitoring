@@ -44,6 +44,7 @@ def get_domains_from_db():
     domains = [row[0] for row in cursor.fetchall()]
     conn.close()
 
+    logging.info(f"{domains}")
     return domains
 
 def update_days_in_db(days_left, name):
@@ -76,5 +77,6 @@ if __name__ == '__main__':
 
     for domain in domains:
         days = compute_days(domain)
+        logging.info(f"{domain}: {days} days left")
         print(f"{domain}: {days} days left")
         update_days_in_db(days, domain)
