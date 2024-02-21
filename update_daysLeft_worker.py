@@ -5,8 +5,6 @@ from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
 import smtplib
 from email.mime.text import MIMEText
-from datetime import datetime
-
 
 # email settings
 SMTP_USER="bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
@@ -91,18 +89,9 @@ def update_days_in_db(days_left, name):
 
 def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
-    logging.info(f"Expiration date for {Domain}: {value}")
-
     if isinstance(value, str):
-        expiration_date = datetime.strptime(value, '%Y-%m-%d')
-        today = datetime.today()
-        days_left = (expiration_date - today).days
-
-        if days_left <= 7:
-            send_email_alert(Domain, days_left)  # Sending email alert for SSL certificate expiring in 7 days
-
         logging.info("The value is an integer.")
-        return days_left
+        return int(value)
     else:
         logging.info("The value is not an integer.")
         return 0
