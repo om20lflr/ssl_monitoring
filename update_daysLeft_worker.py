@@ -3,7 +3,36 @@ import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
 
+
+# email settings
+SMTP_USER="bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
+SMTP_PASS="bW9vZWdobGFjcXNreW5yeQ=="
+EMAIL_RECIPIENT = ["om20_os@hotelstotsenberg.com"]
+
+def send_email_alert(domain, days_left):
+    subject = f"SSL Certificate Expiry Alert for {domain}"
+    body = f"The SSL certificate for {domain} will expire in {days_left} days."
+
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = SMTP_USER
+    msg['To'] = ', '.join(EMAIL_RECIPIENT)
+
+    #  SMTP - to send email
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)  # Update with your SMTP server details
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASS)
+        server.sendmail(SMTP_USER, EMAIL_RECIPIENT, msg.as_string())
+        logging.info(f"Email notification sent for {domain}")
+    except Exception as e:
+        logging.error(f"Failed to send email notification for {domain}: {e}")
+    finally:
+        server.quit()
 
 
 SSL_DB_CRED = {
@@ -44,7 +73,7 @@ def get_domains_from_db():
     domains = [row[0] for row in cursor.fetchall()]
     conn.close()
 
-    logging.info(f"{domains}")
+    logging.info(f"domains from db: {domains}")
     return domains
 
 def update_days_in_db(days_left, name):
@@ -63,8 +92,15 @@ def update_days_in_db(days_left, name):
 def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
     if isinstance(value, str):
+        expiration_date = datetime.strptime(value, '%Y-%m-%d')
+        today = datetime.today()
+        days_left = (expiration_date - today).days
+
+        if days_left <= 7:
+            send_email_alert(Domain, days_left)  # Sending email alert for SSL certificate expiring in 7 days
+
         logging.info("The value is an integer.")
-        return int(value)
+        return days_left
     else:
         logging.info("The value is not an integer.")
         return 0
