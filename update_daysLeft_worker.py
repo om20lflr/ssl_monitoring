@@ -90,11 +90,12 @@ def update_days_in_db(days_left, name):
 def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
     if isinstance(value, str):
-        logging.info("The value is an integer.")
-        return int(value)
+        logging.info("The value is a string.")
+        return value  # Returning the expiration date string
     else:
-        logging.info("The value is not an integer.")
-        return 0
+        logging.info("The value is not a string.")
+        return '0'  # Return a default value or handle the error condition
+
 
 if __name__ == '__main__':
     domains = get_domains_from_db()
@@ -103,7 +104,11 @@ if __name__ == '__main__':
     print(f"Retrieved {len(domains)} domains from the database")
 
     for domain in domains:
-        days = compute_days(domain)
-        logging.info(f"{domain}: {days} days left")
-        print(f"{domain}: {days} days left")
-        update_days_in_db(days, domain)
+        days_left = compute_days(domain)
+        logging.info(f"{domain}: {days_left} days left")
+        print(f"{domain}: {days_left} days left")
+        update_days_in_db(days_left, domain)
+
+        # Check if days_left is less than 7 to trigger an alert
+        if days_left.isdigit() and int(days_left) < 7:
+            send_email_alert(domain, days_left)
