@@ -24,7 +24,8 @@ def send_email_alert(domain, days_left, server="smtp.gmail.com",port=587):
 
     #  SMTP - to send email
     try:
-        server = smtplib.SMTP('smtp.gmail.com', port)  # Update with your SMTP server details
+        server = smtplib.SMTP()
+        server.connect(server,port)# Update with your SMTP server details
         server.starttls()
         server.login(SMTP_USER, SMTP_PASS)
         server.sendmail(SMTP_USER, EMAIL_RECIPIENT, msg.as_string())
