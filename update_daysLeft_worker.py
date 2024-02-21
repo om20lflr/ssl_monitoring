@@ -7,8 +7,8 @@ import smtplib
 from email.mime.text import MIMEText
 
 # email settings
-SMTP_USER="bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
-SMTP_PASS="bW9vZWdobGFjcXNreW5yeQ=="
+SMTP_USER="b20yMF9vc0Bob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
+SMTP_PASS="THlkZW4wMzEzMDYxOQ=="
 EMAIL_RECIPIENT = ["om20_os@hotelstotsenberg.com"]
 
 def send_email_alert(domain, days_left, server="smtp.gmail.com",port=587):
@@ -24,8 +24,7 @@ def send_email_alert(domain, days_left, server="smtp.gmail.com",port=587):
 
     #  SMTP - to send email
     try:
-        server = smtplib.SMTP()
-        server.connect(server,port)# Update with your SMTP server details
+        server = smtplib.SMTP(server,port)
         server.starttls()
         server.login(SMTP_USER, SMTP_PASS)
         server.sendmail(SMTP_USER, EMAIL_RECIPIENT, msg.as_string())
