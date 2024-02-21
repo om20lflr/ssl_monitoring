@@ -13,7 +13,9 @@ EMAIL_RECIPIENT = ["om20_os@hotelstotsenberg.com"]
 
 def send_email_alert(domain, days_left):
     subject = f"SSL Certificate Expiry Alert for {domain}"
+    logging.info(f"SSL Certificate Expiry Alert for {domain}")
     body = f"The SSL certificate for {domain} will expire in {days_left} days."
+    logging.info(f"The SSL certificate for {domain} will expire in {days_left} days.")
 
     msg = MIMEText(body)
     msg['Subject'] = subject
