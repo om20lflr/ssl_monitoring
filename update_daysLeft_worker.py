@@ -4,35 +4,13 @@ import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
 import smtplib
-from email.mime.text import MIMEText
+
 
 # email settings
 SMTP_USER="b20yMF9vc0Bob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
 SMTP_PASS="THlkZW4wMzEzMDYxOQ=="
 EMAIL_RECIPIENT = ["om20_os@hotelstotsenberg.com"]
 
-def send_email_alert(domain, days_left, server="smtp.gmail.com",port=587):
-    subject = f"SSL Certificate Expiry Alert for {domain}"
-    logging.info(f"SSL Certificate Expiry Alert for {domain}")
-    body = f"The SSL certificate for {domain} will expire in {days_left} days."
-    logging.info(f"The SSL certificate for {domain} will expire in {days_left} days.")
-
-    msg = MIMEText(body)
-    msg['Subject'] = subject
-    msg['From'] = SMTP_USER
-    msg['To'] = ', '.join(EMAIL_RECIPIENT)
-
-    #  SMTP - to send email
-    try:
-        server = smtplib.SMTP(server,port)
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
-        server.sendmail(SMTP_USER, EMAIL_RECIPIENT, msg.as_string())
-        logging.info(f"Email notification sent for {domain}")
-    except Exception as e:
-        logging.error(f"Failed to send email notification for {domain}: {e}")
-    finally:
-        server.quit()
 
 
 SSL_DB_CRED = {
@@ -110,7 +88,3 @@ if __name__ == '__main__':
         logging.info(f"{domain}: {days_left} days left")
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
-
-        # Check if days_left is less than 7 to trigger an alert
-        if days_left.isdigit() and int(days_left) < 7:
-            send_email_alert(domain, days_left)
