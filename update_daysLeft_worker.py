@@ -7,10 +7,6 @@ import smtplib
 
 
 # email settings
-SMTP_USER="b20yMF9vc0Bob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
-SMTP_PASS="THlkZW4wMzEzMDYxOQ=="
-EMAIL_RECIPIENT = ["om20_os@hotelstotsenberg.com"]
-
 
 
 SSL_DB_CRED = {
@@ -71,10 +67,10 @@ def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
     if isinstance(value, str):
         logging.info("The value is a string.")
-        return value  # Returning the expiration date string
+        return value
     else:
         logging.info("The value is not a string.")
-        return '0'  # Return a default value or handle the error condition
+        return '0'
 
 
 if __name__ == '__main__':
