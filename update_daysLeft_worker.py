@@ -3,7 +3,6 @@ import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
-import smtplib
 
 
 # email settings
