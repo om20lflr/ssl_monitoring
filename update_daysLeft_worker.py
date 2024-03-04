@@ -15,6 +15,7 @@ SSL_DB_CRED = {
     'database': "{}".format(base64.b64decode("YXJndXNfY3A=").decode('utf-8'))
 }
 
+#logging
 logpath = f"/var/log/cp_argus/ssl_update"
 
 if not os.path.exists(logpath):
