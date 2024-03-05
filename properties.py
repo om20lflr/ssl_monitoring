@@ -1,5 +1,6 @@
 from main_properties import CELERY_SERVER
 import os
+from celery.schedules import crontab
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,3 +12,20 @@ CELERY_BACKEND = CELERY_BROKER
 CELERY_QUEUE = "{}Queue".format(MAIN_DIR)
 CELERY_CONCURRENCY = 6
 CELERY_HOSTNAME = "{}Hostname".format(MAIN_DIR)
+
+CELERY_BEAT_SCHEDULE = {
+'celery_test': {
+
+    'task': 'ssl_monitoring.tasks.check_for_domain_expiry',
+    'schedule': crontab(minute=0, hour=0), #every day at midnight
+    },
+}
+
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'vhchong@snsoft.my'
+EMAIL_HOST_PASSWORD = 'Snsoft@2024'

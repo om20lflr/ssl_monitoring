@@ -5,6 +5,8 @@ import socket
 import logging, os
 from properties import MAIN_DIR, CELERY_BROKER, CELERY_BACKEND
 import sys
+from datetime import datetime
+from django.core.mail import send_mail
 
 app = Celery('tasks', broker=CELERY_BROKER, backend=CELERY_BACKEND)
 logpath = "/var/log/cp_argus/{}".format(MAIN_DIR)
@@ -120,6 +122,19 @@ def computeDays(Domain):
         return 0
 
 
+#email auto
+@app.task()
+def check_for_domain_expiry(expiration_dates):
+    domain_expiry_date = [expiration_dates]
+    now = datetime.date.today()
+    week_old = now - datetime.timedelta(days=14)
+    for domain in domain_expiry_date:
+        if domain.expiration_date.date() == week_old.date():
+            send_mail('Domain Renewal Reminder',
+                '{} is due {} days left'.format(domain.name, domain.days_left),
+                'vhchong@snsoft.com.my',
+                ['josephcvh@gmail.com'])
+            # return check_for_domain_expiry()
 
 
 if '__main__' == __name__:

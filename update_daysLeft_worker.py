@@ -5,7 +5,8 @@ from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
 
 
-# email settings
+
+
 
 
 SSL_DB_CRED = {
@@ -84,3 +85,5 @@ if __name__ == '__main__':
         logging.info(f"{domain}: {days_left} days left")
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
+
+
