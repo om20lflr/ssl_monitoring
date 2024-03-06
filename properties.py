@@ -13,13 +13,6 @@ CELERY_QUEUE = "{}Queue".format(MAIN_DIR)
 CELERY_CONCURRENCY = 6
 CELERY_HOSTNAME = "{}Hostname".format(MAIN_DIR)
 
-CELERY_BEAT_SCHEDULE = {
-'celery_test': {
-
-    'task': 'ssl_monitoring.tasks.check_for_domain_expiry',
-    'schedule': crontab(minute=0, hour=0), #every day at midnight
-    },
-}
 
 
 # Email Settings
