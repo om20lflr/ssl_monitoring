@@ -93,7 +93,7 @@ if __name__ == '__main__':
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
 
-        if days_left <= str(week_old):
+        if days_left < str(14):
             with get_connection(
                     host='smtp.gmail.com',
                     port='587',
