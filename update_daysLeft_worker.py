@@ -78,26 +78,11 @@ def compute_days(Domain):
         logging.info("The value is not a string.")
         return '0'
 
-#automate email reminder
-def check_for_domain_expiry():
-    domains = get_domains_from_db()
-    week_old = "14" #timedelta(days=14)
-    for domain in domains:
-        if days_left <= week_old:
-            #logging.info(f"{domain} expire soon: {days_left} days left")
-            #print(f"{domain} expire soon: {days_left} days left")
-            with get_connection(
-                    host='smtp.gmail.com',
-                    port='587',
-                    username='vhchong@snsoft.my',
-                    password='ymum zzzp sfby iqxm',
-                    use_tls=True
-            ) as connection:
-                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
-                             connection=connection).send()
+
 
 if __name__ == '__main__':
     domains = get_domains_from_db()
+    week_old = "14"  # timedelta(days=14)
 
     logging.info(f"Retrieved {len(domains)} domains from the database")
     print(f"Retrieved {len(domains)} domains from the database")
@@ -107,7 +92,16 @@ if __name__ == '__main__':
         logging.info(f"{domain}: {days_left} days left")
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
-        check_for_domain_expiry()
 
+        if days_left <= week_old:
+            with get_connection(
+                    host='smtp.gmail.com',
+                    port='587',
+                    username='vhchong@snsoft.my',
+                    password='ymum zzzp sfby iqxm',
+                    use_tls=True
+            ) as connection:
+                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
+                             connection=connection).send()
 
 
