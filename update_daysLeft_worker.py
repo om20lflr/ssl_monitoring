@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
+from django.conf import settings
+settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 
 
 
