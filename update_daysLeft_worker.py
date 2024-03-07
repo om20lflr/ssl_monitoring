@@ -1,5 +1,7 @@
 import logging
 import os
+from time import strftime
+
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
@@ -86,7 +88,7 @@ def check_for_domain_expiry():
     now = datetime.today()
     week_old = now - timedelta(days=14)
     for domain in domains:
-        if domain.expiration_date == week_old.date():
+        if strftime(domain.expiration_date) == week_old.date():
             #logging.info(f"{domain} expire soon: {days_left} days left")
             #print(f"{domain} expire soon: {days_left} days left")
             with get_connection(
