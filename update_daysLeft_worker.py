@@ -90,7 +90,7 @@ def check_for_domain_expiry():
                     host='smtp.gmail.com',
                     port='587',
                     username='vhchong@snsoft.my',
-                    password='Snsoft@2024',
+                    password='ymum zzzp sfby iqxm',
                     use_tls=True
             ) as connection:
                 EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain.name, domain.days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
