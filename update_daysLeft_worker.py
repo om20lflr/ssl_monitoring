@@ -95,6 +95,8 @@ def check_for_domain_expiry():
     week_old = now - datetime.timedelta(days=14)
     for domain in domains:
         if domain.expiration_date.date() == week_old.date():
+            logging.info(f"{domain}: {days_left} days left")
+            print(f"{domain}: {days_left} days left")
             with get_connection(
                     host='smtp.gmail.com',
                     port='587',
