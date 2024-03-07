@@ -88,7 +88,7 @@ def check_for_domain_expiry():
     now = datetime.today()
     week_old = now - timedelta(days=14)
     for domain in domains:
-        if strftime(domain.expiration_date) == week_old.date():
+        if str(domain.expiration_date) == week_old.date():
             #logging.info(f"{domain} expire soon: {days_left} days left")
             #print(f"{domain} expire soon: {days_left} days left")
             with get_connection(
