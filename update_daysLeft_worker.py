@@ -3,7 +3,7 @@ import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
@@ -78,7 +78,7 @@ def compute_days(Domain):
 def check_for_domain_expiry():
     domains = get_domains_from_db()
     now = datetime.today()
-    week_old = now - datetime.timedelta(days=14)
+    week_old = now - timedelta(days=14)
     for domain in domains:
         if domain.expiration_date.date() == week_old.date():
             logging.info(f"{domain} expire soon: {days_left} days left")
