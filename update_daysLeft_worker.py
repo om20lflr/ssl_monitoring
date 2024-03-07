@@ -93,7 +93,7 @@ def check_for_domain_expiry():
                     password='ymum zzzp sfby iqxm',
                     use_tls=True
             ) as connection:
-                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain.name, domain.days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
+                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
                              connection=connection).send()
 
 if __name__ == '__main__':
