@@ -103,9 +103,10 @@ if __name__ == '__main__':
             ) as connection:
                 EmailMessage('Domain Renewal Reminder',
                              'Hi Team, \n\n'
+                             'Reminder\n'
                              'Domain: {} is due in {} days.\n\n'
                              'Regards,\n'
-                             'OM'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
+                             'OM'.format(domain, days_left), 'vhchong@snsoft.com.my', ['om20_os@hotelstotsenberg.com'],
                              connection=connection).send()
 
 
