@@ -77,7 +77,7 @@ def compute_days(Domain):
 #automate email reminder
 def check_for_domain_expiry():
     domains = get_domains_from_db()
-    now = datetime.date.today()
+    now = datetime.today()
     week_old = now - datetime.timedelta(days=14)
     for domain in domains:
         if domain.expiration_date.date() == week_old.date():
