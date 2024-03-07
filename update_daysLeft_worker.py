@@ -81,7 +81,7 @@ def check_for_domain_expiry():
     domains = get_domains_from_db()
     week_old = 14 #timedelta(days=14)
     for domain in domains:
-        if days_left == week_old:
+        if domain.days_left <= week_old:
             #logging.info(f"{domain} expire soon: {days_left} days left")
             #print(f"{domain} expire soon: {days_left} days left")
             with get_connection(
