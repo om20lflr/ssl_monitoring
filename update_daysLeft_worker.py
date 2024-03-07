@@ -82,7 +82,7 @@ def compute_days(Domain):
 
 if __name__ == '__main__':
     domains = get_domains_from_db()
-    #week_old = 14 #timedelta(days=14)
+    week_old = "14" #timedelta(days=14)
 
     logging.info(f"Retrieved {len(domains)} domains from the database")
     print(f"Retrieved {len(domains)} domains from the database")
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
 
-        if days_left < domain.objects.filter(days_left__lte=14):
+        if int(days_left) <= int(week_old):
             with get_connection(
                     host='smtp.gmail.com',
                     port='587',
