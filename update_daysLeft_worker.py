@@ -101,7 +101,11 @@ if __name__ == '__main__':
                     password='ymum zzzp sfby iqxm',
                     use_tls=True
             ) as connection:
-                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
+                EmailMessage('Domain Renewal Reminder',
+                             'Hi Team, \n\n'
+                             'Domain: {} is due in {} days.\n\n'
+                             'Regards,\n'
+                             'OM'.format(domain, days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
                              connection=connection).send()
 
 
