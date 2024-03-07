@@ -3,9 +3,10 @@ import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
+from datetime import datetime
 
-
-
+from django.core.mail import get_connection, send_mail
+from django.core.mail.message import EmailMessage
 
 
 
@@ -87,3 +88,19 @@ if __name__ == '__main__':
         update_days_in_db(days_left, domain)
 
 
+#automate email reminder
+def check_for_domain_expiry():
+    domains = get_domains_from_db()
+    now = datetime.date.today()
+    week_old = now - datetime.timedelta(days=14)
+    for domain in domains:
+        if domain.expiration_date.date() == week_old.date():
+            with get_connection(
+                    host='smtp.gmail.com',
+                    port='587',
+                    username='vhchong@snsoft.my',
+                    password='Snsoft@2024',
+                    use_tls=True
+            ) as connection:
+                EmailMessage('Domain Renewal Reminder', '{} is due {} days left'.format(domain.name, domain.days_left), 'vhchong@snsoft.com.my', ['josephcvh@gmail.com'],
+                             connection=connection).send()
