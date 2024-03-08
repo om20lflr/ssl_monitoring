@@ -1,6 +1,5 @@
 import logging
 import os
-from time import strftime
 
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
@@ -15,8 +14,6 @@ settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-#from email.utils import COMMASPACE, formatdate
-from properties import SMTP_USER, SMTP_PASS
 import smtplib
 
 
@@ -87,62 +84,59 @@ def compute_days(Domain):
         return '0'
 
 
-#attachments = {"filename":"content"};
-domainname = get_domains_from_db()
-def sendMail():
-
-    domain_names = []
-
-    domainname = get_domains_from_db()
-    week_old = "14"  # timedelta(days=14)
-
-    for domain_name in domainname:
-        if int(days_left) <= int(week_old):
-            (
-                domain_names.append(domainname.domain + "\n")
-            )
 
 
-    # Once I have that, I compile the email:
+def sendMail(send_to,server="smtp.gmail.com",port=587):
 
-    message = MIMEMultipart("alternative")
-    message["Subject"] = "Domain Renewal Alert"
-    message["From"] = "No reply OM"
-    recipients = ["vhchong@snsoft.my"]
-    message["To"] = "josephcvh@gmail.com"
+    domains = get_domains_from_db()
+    week_old = 14
+
+    username = 'vhchong@snsoft.my'
+    password = 'yzlw qeoy flvl zazd'
+
+    # me == my email address
+    # you == recipient's email address
+    me = "vhchong@snsoft.my"
+    you = "josephcvh@gmail.com"
 
 
-    # creating the content of the email, first the plain content then the html content
 
-    plain = """
-    Domain Expired soon:
-    """ + "\n".join(
-        domain_names
-    )
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "Domain Expiry Notice"
+    msg['From'] = me
+    msg['To'] = you
 
-    html = """
-    <h1><span style="color: #ff0000; background-color: #000000;"><strong>Domain Expired soon:</strong></span></h1>
-    """ + "\n".join(
-        domain_names
-    )
+    if int(days_left) <= int(week_old):
 
-    # now we compile both parts to prepare them to send
+        html = """\
+        <html>
+        <head></head>
+        <body>
+        <p>Hi Team,<br>
+        Reminder:<br>
+        """
 
-    part1 = MIMEText(plain, "plain")
-    part2 = MIMEText(html, "html")
-    message.attach(part1)
-    message.attach(part2)
+        d = []
+        for domain in domains:
+            d.append('Here is the <a href="http://contract.mydomain.com/{0}>link</a> you wanted.'.format(domain.days_left))
+        print(d)
+        html = html.format('\n'.join(d))
+        """
+        </p>
+        </body>
+        </html>
+        """
 
-    # Now send the email
+    part2 = MIMEText(html, 'html')
 
-    gmail_user = "vhchong@snsoft.my"
-    gmail_pwd = "yzlw qeoy flvl zazd"
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.login(gmail_user, gmail_pwd)
-    server.sendmail(message["From"], recipients, message.as_string())
+    msg.attach(part2)
 
+    smtp = smtplib.SMTP()
+    smtp.connect(server, port)
+    smtp.starttls()
+    smtp.login(username, password)
+    smtp.sendmail(username, send_to, msg.as_string())
+    smtp.close()
 
 
 if __name__ == '__main__':
