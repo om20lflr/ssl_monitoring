@@ -97,14 +97,14 @@ def sendMail(send_to,server="smtp.gmail.com",port=587):
     # me == my email address
     # you == recipient's email address
     me = "vhchong@snsoft.my"
-    you = "josephcvh@gmail.com"
+    sent_to = "josephcvh@gmail.com"
 
 
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "Domain Expiry Notice"
     msg['From'] = me
-    msg['To'] = you
+    msg['To'] = sent_to
 
     if int(days_left) <= int(week_old):
 
