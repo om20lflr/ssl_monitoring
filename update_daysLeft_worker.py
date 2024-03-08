@@ -101,7 +101,7 @@ def sendMail(server="smtp.gmail.com",port=587):
             msg['From'] = me
             msg['To'] = you
 
-            if int(domain.days_left) <= int(week_old):
+            if domain.days_left <= int(week_old):
                 html = """\
                 <html>
                     <head></head>
