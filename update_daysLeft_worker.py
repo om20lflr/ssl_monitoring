@@ -94,8 +94,6 @@ def sendMail():
     for domain in domains:
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
-            logging.info(f"Domain: {domain} is expiring in {days_left} days")
-            print(f"Domain: {domain} is expiring in {days_left} days")
 
             me = "vhchong@snsoft.my"
             you = "josephcvh@gmail.com"
@@ -106,18 +104,16 @@ def sendMail():
             msg['To'] = you
 
             html = """\
-                <html>
-                <head></head>
-                <body>
-                <p>Hi Team,<br>
-                Reminder:<br>
-                """
-
-
-
-            d.append('Domain: {0} is expiring in {1} days.'.format(domain,days_left))
-            print(d)
-            html = html.format('\n'.join(d))
+            <html>
+            <head></head>
+            <body>
+            <p>Hi Team,<br>
+            Reminder:<br>
+            """
+            for d in domains:
+                d.append('Domain: {0} is expiring in {1} days.'.format(domain, days_left))
+                print(d)
+                html = html.format('\n'.join(d))
             """
             </p>
             </body>
