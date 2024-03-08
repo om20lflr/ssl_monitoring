@@ -108,8 +108,8 @@ def sendMail():
     message = MIMEMultipart("alternative")
     message["Subject"] = "Domain Renewal Alert"
     message["From"] = "No reply OM"
-    recipients = ["noreply-om@hotelstotsenberg.com"]
-    message["To"] = "vhchong@snsoft.my"
+    recipients = ["vhchong@snsoft.my"]
+    message["To"] = "josephcvh@gmail.com"
 
 
     # creating the content of the email, first the plain content then the html content
@@ -135,8 +135,8 @@ def sendMail():
 
     # Now send the email
 
-    gmail_user = "bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ"
-    gmail_pwd = "bW9vZWdobGFjcXNreW5yeQ"
+    gmail_user = "vhchong@snsoft.my"
+    gmail_pwd = "yzlw qeoy flvl zazd"
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.ehlo()
     server.starttls()
