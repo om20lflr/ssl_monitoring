@@ -86,13 +86,14 @@ def compute_days(Domain):
 
 
 
-def sendMail(server="smtp.gmail.com",port=587):
+def sendMail():
 
     domains = get_domains_from_db()
     week_old = 14
 
     for domain in domains:
-        if domain.days_left <= int(week_old):
+        days_left = compute_days(domain)
+        if int(days_left) <= int(week_old):
             logging.info(f"Domain: {domain} is expiring in {days_left} days")
             print(f"Domain: {domain} is expiring in {days_left} days")
 
