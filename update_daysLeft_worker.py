@@ -115,7 +115,7 @@ def sendMail():
 
 
 
-            d.append('Here is the <a href="http://contract.mydomain.com/{0}>link</a> you wanted.'.format(
+            d.append('Domain: {0} is expiring in {0}> days.'.format(domain,
                     days_left))
             print(d)
             html = html.format('\n'.join(d))
