@@ -1,6 +1,5 @@
 from main_properties import CELERY_SERVER
 import os
-from celery.schedules import crontab
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,3 +12,7 @@ CELERY_QUEUE = "{}Queue".format(MAIN_DIR)
 CELERY_CONCURRENCY = 6
 CELERY_HOSTNAME = "{}Hostname".format(MAIN_DIR)
 
+
+
+SMTP_USER = "bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ=="
+SMTP_PASS = "bW9vZWdobGFjcXNreW5yeQ=="
