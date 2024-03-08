@@ -90,7 +90,7 @@ def sendMail():
 
     domains = get_domains_from_db()
     week_old = 14
-
+    d = []
     for domain in domains:
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
@@ -109,19 +109,21 @@ def sendMail():
                     <body>
                         <p>Hi Team,<br>
                         Reminder:<br>
-                        {0}
+                        """
+            d.append('Domain: {0} is expiring in {1} days.'.format(domain, days_left))
+            print(d)
+            html = html.format('\n'.join(d))
+
+            """
                         </p>
                     </body>
             </html>
             """
-            d = []
+            print(html)
 
-            for domain in domains:
-                print(domain)
-                d.append('Domain: {0} is expiring in {1} days.'.format(domain, days_left))
-                print(d)
-                html = html.format('\n'.join(d))
-                print(html)
+
+
+
 
 
             part2 = MIMEText(html, 'html')
