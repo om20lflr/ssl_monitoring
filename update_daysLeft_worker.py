@@ -115,9 +115,9 @@ def sendMail():
             </html>
             """
             d = []
-            i = 0
-            for i in domains:
-                print(i)
+
+            for domain in domains:
+                print(domain)
                 d.append('Domain: {0} is expiring in {1} days.'.format(domain, days_left))
                 print(d)
                 html = html.format('\n'.join(d))
