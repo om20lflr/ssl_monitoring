@@ -101,14 +101,14 @@ def sendMail(server="smtp.gmail.com",port=587):
             msg['From'] = me
             msg['To'] = you
 
-            if domain.days_left <= int(week_old):
+            if int(days_left) <= int(week_old):
                 html = """\
                 <html>
-                    <head></head>
-                        <body>
-                        <p>Hi Team,<br>
-                        Reminder:<br>
-                        """
+                <head></head>
+                <body>
+                <p>Hi Team,<br>
+                Reminder:<br>
+                """
 
                 d = []
                 for domain in domains:
