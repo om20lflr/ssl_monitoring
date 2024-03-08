@@ -97,8 +97,48 @@ def sendMail():
             logging.info(f"Domain: {domain} is expiring in {days_left} days")
             print(f"Domain: {domain} is expiring in {days_left} days")
 
+            me = "vhchong@snsoft.my"
+            you = "josephcvh@gmail.com"
 
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = "Domain Expiry Notice"
+            msg['From'] = me
+            msg['To'] = you
 
+            html = """\
+                <html>
+                <head></head>
+                <body>
+                <p>Hi Team,<br>
+                Reminder:<br>
+                """
+
+            d = []
+            for domain in domains:
+                d.append('Here is the <a href="http://contract.mydomain.com/{0}>link</a> you wanted.'.format(
+                    domain.days_left))
+                print(d)
+                html = html.format('\n'.join(d))
+            """
+            </p>
+            </body>
+            </html>
+            """
+
+            part2 = MIMEText(html, 'html')
+
+            msg.attach(part2)
+
+            # Send the message via local SMTP server.
+            mail = smtplib.SMTP('smtp.gmail.com', 587)
+
+            mail.ehlo()
+
+            mail.starttls()
+
+            mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+            mail.sendmail(me, you, msg.as_string())
+            mail.quit()
 
 
 if __name__ == '__main__':
