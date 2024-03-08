@@ -92,8 +92,9 @@ def sendMail(server="smtp.gmail.com",port=587):
     week_old = 14
 
     for domain in domains:
-        logging.info(f"Domain: {domain} is expiring in {days_left} days")
-        print(f"Domain: {domain} is expiring in {days_left} days")
+        if int(days_left) <= int(week_old):
+            logging.info(f"Domain: {domain} is expiring in {days_left} days")
+            print(f"Domain: {domain} is expiring in {days_left} days")
 
 
 
