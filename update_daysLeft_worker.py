@@ -12,6 +12,14 @@ from django.core.mail.message import EmailMessage
 from django.conf import settings
 settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+#from email.utils import COMMASPACE, formatdate
+from properties import SMTP_USER, SMTP_PASS
+import smtplib
+
+
 
 
 SSL_DB_CRED = {
@@ -79,6 +87,63 @@ def compute_days(Domain):
         return '0'
 
 
+#attachments = {"filename":"content"};
+domainname = get_domains_from_db()
+def sendMail():
+
+    domain_names = []
+
+    domainname = get_domains_from_db()
+    week_old = "14"  # timedelta(days=14)
+
+    for domain_name in domainname:
+        if int(days_left) <= int(week_old):
+            (
+                domain_names.append(domainname.domain + "\n")
+            )
+
+
+    # Once I have that, I compile the email:
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "Domain Renewal Alert"
+    message["From"] = "No reply OM"
+    recipients = ["noreply-om@hotelstotsenberg.com"]
+    message["To"] = "vhchong@snsoft.my"
+
+
+    # creating the content of the email, first the plain content then the html content
+
+    plain = """
+    Domain Expired soon:
+    """ + "\n".join(
+        domain_names
+    )
+
+    html = """
+    <h1><span style="color: #ff0000; background-color: #000000;"><strong>Domain Expired soon:</strong></span></h1>
+    """ + "\n".join(
+        domain_names
+    )
+
+    # now we compile both parts to prepare them to send
+
+    part1 = MIMEText(plain, "plain")
+    part2 = MIMEText(html, "html")
+    message.attach(part1)
+    message.attach(part2)
+
+    # Now send the email
+
+    gmail_user = "bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ"
+    gmail_pwd = "bW9vZWdobGFjcXNreW5yeQ"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.login(gmail_user, gmail_pwd)
+    server.sendmail(message["From"], recipients, message.as_string())
+
+
 
 if __name__ == '__main__':
     domains = get_domains_from_db()
@@ -93,20 +158,8 @@ if __name__ == '__main__':
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
 
-        if int(days_left) <= int(week_old):
-            with get_connection(
-                    host='smtp.gmail.com',
-                    port='587',
-                    username='bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ==',
-                    password='bW9vZWdobGFjcXNreW5yeQ==',
-                    use_tls=True
-            ) as connection:
-                EmailMessage('Domain Renewal Reminder',
-                             'Hi Team, \n\n'
-                             'Reminder\n'
-                             'Domain: {} is due in {} days.\n\n'
-                             'Regards,\n'
-                             'OM'.format(domain, days_left), 'noreply-om@hotelstotsenberg.com', ['vhchong@snsoft.my'],
-                             connection=connection).send()
+    sendMail()
+
+
 
 
