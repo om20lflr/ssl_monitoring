@@ -86,7 +86,7 @@ def compute_days(Domain):
 
 
 
-def sendMail(send_to,server="smtp.gmail.com",port=587):
+def sendMail(server="smtp.gmail.com",port=587):
 
     domains = get_domains_from_db()
     week_old = 14
@@ -97,14 +97,14 @@ def sendMail(send_to,server="smtp.gmail.com",port=587):
     # me == my email address
     # you == recipient's email address
     me = "vhchong@snsoft.my"
-    sent_to = "josephcvh@gmail.com"
+    #sent_to = "josephcvh@gmail.com"
 
 
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "Domain Expiry Notice"
     msg['From'] = me
-    msg['To'] = sent_to
+    msg['To'] = "josephcvh@gmail.com"
 
     if int(days_left) <= int(week_old):
 
@@ -135,7 +135,7 @@ def sendMail(send_to,server="smtp.gmail.com",port=587):
     smtp.connect(server, port)
     smtp.starttls()
     smtp.login(username, password)
-    smtp.sendmail(username, send_to, msg.as_string())
+    smtp.sendmail(username, msg.as_string())
     smtp.close()
 
 
