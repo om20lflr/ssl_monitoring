@@ -86,11 +86,11 @@ def compute_days(Domain):
 
 
 
-def sendMail(dd):
+def sendMail():
 
     domains = get_domains_from_db()
     week_old = 14
-    dd = []
+
     d = []
 
     for domain in domains:
