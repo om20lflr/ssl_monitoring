@@ -97,14 +97,14 @@ def sendMail(server="smtp.gmail.com",port=587):
     # me == my email address
     # you == recipient's email address
     me = "vhchong@snsoft.my"
-    #sent_to = "josephcvh@gmail.com"
+    you = "josephcvh@gmail.com"
 
 
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "Domain Expiry Notice"
     msg['From'] = me
-    msg['To'] = "josephcvh@gmail.com"
+    msg['To'] = you
 
     if int(days_left) <= int(week_old):
 
@@ -131,12 +131,16 @@ def sendMail(server="smtp.gmail.com",port=587):
 
     msg.attach(part2)
 
-    smtp = smtplib.SMTP()
-    smtp.connect(server, port)
-    smtp.starttls()
-    smtp.login(username, password)
-    smtp.sendmail(username, msg.as_string())
-    smtp.close()
+    # Send the message via local SMTP server.
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+
+    mail.ehlo()
+
+    mail.starttls()
+
+    mail.login('username', 'password')
+    mail.sendmail(me, you, msg.as_string())
+    mail.quit()
 
 
 if __name__ == '__main__':
