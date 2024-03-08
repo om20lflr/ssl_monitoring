@@ -97,8 +97,8 @@ if __name__ == '__main__':
             with get_connection(
                     host='smtp.gmail.com',
                     port='587',
-                    username='vhchong@snsoft.my',
-                    password='ymum zzzp sfby iqxm',
+                    username='bm9yZXBseS1vbUBob3RlbHN0b3RzZW5iZXJnLmNvbQ==',
+                    password='bW9vZWdobGFjcXNreW5yeQ==',
                     use_tls=True
             ) as connection:
                 EmailMessage('Domain Renewal Reminder',
@@ -106,7 +106,7 @@ if __name__ == '__main__':
                              'Reminder\n'
                              'Domain: {} is due in {} days.\n\n'
                              'Regards,\n'
-                             'OM'.format(domain, days_left), 'vhchong@snsoft.com.my', ['om20_os@hotelstotsenberg.com'],
+                             'OM'.format(domain, days_left), 'noreply-om@hotelstotsenberg.com', ['vhchong@snsoft.my'],
                              connection=connection).send()
 
 
