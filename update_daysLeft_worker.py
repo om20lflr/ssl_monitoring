@@ -138,7 +138,7 @@ def sendMail(server="smtp.gmail.com",port=587):
 
     mail.starttls()
 
-    mail.login('username', 'password')
+    mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
     mail.sendmail(me, you, msg.as_string())
     mail.quit()
 
