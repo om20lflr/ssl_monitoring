@@ -90,7 +90,7 @@ def sendMail():
 
     domains = get_domains_from_db()
     week_old = 14
-
+    d = []
     for domain in domains:
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
@@ -113,12 +113,12 @@ def sendMail():
                 Reminder:<br>
                 """
 
-            d = []
-            for domain in domains:
-                d.append('Here is the <a href="http://contract.mydomain.com/{0}>link</a> you wanted.'.format(
-                    domain.days_left))
-                print(d)
-                html = html.format('\n'.join(d))
+
+
+            d.append('Here is the <a href="http://contract.mydomain.com/{0}>link</a> you wanted.'.format(
+                    days_left))
+            print(d)
+            html = html.format('\n'.join(d))
             """
             </p>
             </body>
