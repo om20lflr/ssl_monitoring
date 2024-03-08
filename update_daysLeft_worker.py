@@ -131,16 +131,16 @@ def sendMail(server="smtp.gmail.com",port=587):
 
         msg.attach(part2)
 
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
 
-    mail.ehlo()
+        mail.ehlo()
 
-    mail.starttls()
+        mail.starttls()
 
-    mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+        mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 if __name__ == '__main__':
