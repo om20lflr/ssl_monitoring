@@ -120,6 +120,15 @@ def sendMail():
     msg['To'] = you
 
 
+
+
+    html = """\
+        <html>
+            <head></head>
+                <body>
+                    <p>Hi Team,<br><br>
+                    Reminder:<br>
+                    Please check if Domain listed below need to be renewed.<br><br>"""
     domains = get_domains_from_db()
     week_old = 14
     d = []
@@ -128,22 +137,13 @@ def sendMail():
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
-
             d.append("{0} is expiring in {1} days.".format(domain, days_left))
             print(d)
 
             html1 = ('\n\n'.join(d))
 
             print(html1)
-
-    html = """\
-        <html>
-            <head></head>
-                <body>
-                    <p>Hi Team,<br><br>
-                    Reminder:<br>
-                    Please check if Domain listed below need to be renewed.<br><br>
-                    {html1}
+            """
                     </p>
                 </body>
         </html>
