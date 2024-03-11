@@ -177,9 +177,7 @@ if __name__ == '__main__':
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
 
-    get_daysleft_in_db()
-    logging.info(f"Retrieved {len(domains)} domains and days left from the database")
-    print(f"Retrieved {len(domains)} domains and days left from the database")
+    sendMail()
 
 
 
