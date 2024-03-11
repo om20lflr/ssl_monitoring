@@ -139,7 +139,7 @@ def sendMail():
 
         if int(days_left) <= int(week_old):
             for d in domains:
-                d.append('{0} is expiring in {1} days.'.format(domain, days_left))
+                d = d("{0} is expiring in {1} days.".format(domain, days_left))
                 print(d)
                 html = html.format('\r\n'.join(d))
                 print(html)
