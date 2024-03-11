@@ -83,7 +83,7 @@ def get_daysleft_in_db():
     )
 
     cursor = conn.cursor()
-    cursor.execute("SELECT days_left FROM ssl_monitoring_domainmodel WHERE days_left <= 14 ")
+    cursor.execute("SELECT * FROM ssl_monitoring_domainmodel WHERE days_left < 14 ")
     #domains = [row[0] for row in cursor.fetchall()]
     dayslefts = [row[0] for row in cursor.fetchall()]
     conn.close()
