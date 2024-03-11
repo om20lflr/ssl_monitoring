@@ -147,7 +147,7 @@ def sendMail():
 
             html1 = html.format('\n\n'.join(d))
 
-            return html1
+            print(html1)
 
 
 
