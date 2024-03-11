@@ -83,7 +83,7 @@ def get_daysleft_in_db():
     )
 
     cursor = conn.cursor()
-    cursor.execute("SELECT days_left FROM ssl_monitoring_domainmodel WHERE days_left <= '14'")
+    cursor.execute("SELECT days_left FROM ssl_monitoring_domainmodel WHERE days_left <= 14 ")
     #domains = [row[0] for row in cursor.fetchall()]
     dayslefts = [row[0] for row in cursor.fetchall()]
     conn.close()
@@ -106,12 +106,14 @@ def compute_days(Domain):
 
 def sendMail():
 
+    domain = get_domains_from_db()
     daysleftss = get_daysleft_in_db()
-    week_old = "14"
+    s = ''.join(str(x) for x in daysleftss)
+    week_old = 14
 
     d = []
 
-    if str(daysleftss) <= str(week_old):
+    if int(s) <= int(week_old):
 
         me = "vhchong@snsoft.my"
         you = "josephcvh@gmail.com"
