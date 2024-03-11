@@ -141,11 +141,20 @@ def sendMail():
 
             d.append("{0} is expiring in {1} days.".format(domain, days_left))
             print(d)
-            html += html.format('\n'.join(d))
+            html = html.format('\n'.join(d))
             print(html)
 
+    part2 = MIMEText(html, 'html')
 
+    msg.attach(part2)
 
+    # Send the message via local SMTP server.
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+    mail.sendmail(me, you, msg.as_string())
+    mail.quit()
 
 
 
