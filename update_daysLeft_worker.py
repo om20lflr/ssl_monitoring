@@ -126,6 +126,7 @@ def sendMail():
             </html>
             """
     html = "hello, <br>{0}"
+
     domains = get_domains_from_db()
     week_old = 14
     d = []
@@ -135,13 +136,13 @@ def sendMail():
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
 
-            d.append(html.format("{0} is expiring in {1} days.<br>".format(domain, days_left)))
+            d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
 
             html = ('\n'.join(d))
 
             print(html)
-
+    html = html[2:]
     part2 = MIMEText(html, 'html')
 
     msg.attach(part2)
