@@ -107,7 +107,7 @@ def compute_days(Domain):
 def sendMail():
 
     daysleftss = get_daysleft_in_db()
-    week_old = 14
+    week_old = "14"
 
     d = []
 
