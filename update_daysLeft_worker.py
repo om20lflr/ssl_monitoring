@@ -74,6 +74,24 @@ def update_days_in_db(days_left, name):
     conn.commit()
     conn.close()
 
+def get_daysleft_in_db():
+    conn = mysql.connector.connect(
+        host=SSL_DB_CRED['host'],
+        user=SSL_DB_CRED['user'],
+        password=SSL_DB_CRED['password'],
+        database=SSL_DB_CRED['database']
+    )
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT days_left FROM ssl_monitoring_domainmodel WHERE days_left <= '14'")
+    #domains = [row[0] for row in cursor.fetchall()]
+    dayslefts = [row[0] for row in cursor.fetchall()]
+    conn.close()
+
+    logging.info(f"days left from db: {dayslefts}")
+    return dayslefts
+
+
 def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
     if isinstance(value, str):
@@ -88,38 +106,35 @@ def compute_days(Domain):
 
 def sendMail():
 
-    domains = get_domains_from_db()
+    daysleftss = get_daysleft_in_db()
     week_old = 14
 
     d = []
 
-    for domain in domains:
-        days_left = compute_days(domain)
-        if int(days_left) <= int(week_old):
+    if str(daysleftss) <= str(week_old):
 
-            me = "vhchong@snsoft.my"
-            you = "josephcvh@gmail.com"
+        me = "vhchong@snsoft.my"
+        you = "josephcvh@gmail.com"
 
-            msg = MIMEMultipart('alternative')
-            msg['Subject'] = "Domain Expiry Notice"
-            msg['From'] = me
-            msg['To'] = you
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "Domain Expiry Notice"
+        msg['From'] = me
+        msg['To'] = you
 
-            html = """\
-            <html>
-                <head></head>
-                    <body>
-                        <p>Hi Team,<br>
-                        Reminder:<br>
-                        {0}
-                        </p>
-                    </body>
-            </html>
-            """
+        html = """\
+        <html>
+            <head></head>
+                <body>
+                    <p>Hi Team,<br>
+                    Reminder:<br>
+                    {0}
+                    </p>
+                </body>
+        </html>
+        """
 
-
-
-
+        for domain in domains:
+            days_left = compute_days(domain)
             d.append('Domain: {0} is expiring in {1} days.'.format(domain, days_left))
             print(d)
             html = html.format('\n'.join(d))
@@ -130,20 +145,20 @@ def sendMail():
 
 
 
-            part2 = MIMEText(html, 'html')
+        part2 = MIMEText(html, 'html')
 
-            msg.attach(part2)
+        msg.attach(part2)
 
-            # Send the message via local SMTP server.
-            mail = smtplib.SMTP('smtp.gmail.com', 587)
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
 
-            mail.ehlo()
+        mail.ehlo()
 
-            mail.starttls()
+        mail.starttls()
 
-            mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
-            mail.sendmail(me, you, msg.as_string())
-            mail.quit()
+        mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 if __name__ == '__main__':
