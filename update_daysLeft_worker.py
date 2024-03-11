@@ -106,43 +106,41 @@ def compute_days(Domain):
 
 def sendMail():
 
-
-
-
-
-
-
-
-    me = "vhchong@snsoft.my"
-    you = "josephcvh@gmail.com"
-
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Domain Expiry Notice"
-    msg['From'] = me
-    msg['To'] = you
-
-    html = """\
-    <html>
-        <head></head>
-            <body>
-                <p>Hi Team,<br>
-                Reminder:<br>
-                Domain is expiring soon:<br>
-                {0}
-                </p>
-            </body>
-    </html>
-    """
     domains = get_domains_from_db()
-    week_old = 14
-    d = []
 
     for domain in domains:
         days_left = compute_days(domain)
+
+
+        me = "vhchong@snsoft.my"
+        you = "josephcvh@gmail.com"
+
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "Domain Expiry Notice"
+        msg['From'] = me
+        msg['To'] = you
+
+        html = """\
+        <html>
+            <head></head>
+                <body>
+                    <p>Hi Team,<br>
+                    Reminder:<br>
+                    Domain is expiring soon:<br>
+                    {0}
+                    </p>
+                </body>
+        </html>
+        """
+
+        week_old = 14
+        d = []
+
+
         if int(days_left) <= int(week_old):
             d.append('{0} is expiring in {1} days.'.format(domain, days_left))
             print(d)
-            html = d + html.format('\r\n'.join(d))
+            html = html + html.format('\r\n'.join(d))
             print(html)
 
 
