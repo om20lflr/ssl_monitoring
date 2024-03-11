@@ -102,14 +102,7 @@ def compute_days(Domain):
         return '0'
 
 
-
-
 def sendMail():
-
-
-
-
-
 
     me = "vhchong@snsoft.my"
     you = "josephcvh@gmail.com"
@@ -145,11 +138,9 @@ def sendMail():
             d.append("{0} is expiring in {1} days.".format(domain, days_left))
             print(d)
 
-            html = html.format('\n\n'.join(d))
+            html = ('\n'.join(d))
 
             print(html)
-
-
 
 
     part2 = MIMEText(html, 'html')
