@@ -126,7 +126,7 @@ def sendMail():
                 <p>Hi Team,<br><br>
                 Reminder:<br>
                 Please check if Domain listed below need to be renewed.<br><br>
-                {0}
+                
                 </p>
             </body>
     </html>
