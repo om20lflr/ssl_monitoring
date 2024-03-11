@@ -148,13 +148,13 @@ def sendMail():
 
             msg.attach(part2)
 
-        # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.ehlo()
-        mail.starttls()
-        mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
-        mail.sendmail(me, you, msg.as_string())
-        mail.quit()
+            # Send the message via local SMTP server.
+            mail = smtplib.SMTP('smtp.gmail.com', 587)
+            mail.ehlo()
+            mail.starttls()
+            mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+            mail.sendmail(me, you, msg.as_string())
+            mail.quit()
 
 
 
