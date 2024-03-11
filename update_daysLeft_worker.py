@@ -145,9 +145,9 @@ def sendMail():
             html = html[2:]
             print(html)
 
-            part2 = MIMEText(html, 'html')
+    part2 = MIMEText(html, 'html')
 
-            msg.attach(part2)
+    msg.attach(part2)
 
     # Send the message via local SMTP server.
     mail = smtplib.SMTP('smtp.gmail.com', 587)
