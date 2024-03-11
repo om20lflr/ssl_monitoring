@@ -85,11 +85,11 @@ def get_daysleft_in_db():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM ssl_monitoring_domainmodel WHERE days_left < 14 ")
     #domains = [row[0] for row in cursor.fetchall()]
-    dayslefts = [row[0] for row in cursor.fetchall()]
+    daysleft = [row[0] for row in cursor.fetchall()]
     conn.close()
 
-    logging.info(f"days left from db: {dayslefts}")
-    return dayslefts
+    logging.info(f"days left from db: {daysleft}")
+    return daysleft
 
 
 def compute_days(Domain):
@@ -176,6 +176,8 @@ if __name__ == '__main__':
         update_days_in_db(days_left, domain)
 
     get_daysleft_in_db()
+    logging.info(f"Retrieved {len(domains)} domains and days left from the database")
+    print(f"Retrieved {len(domains)} domains and days left from the database")
 
 
 
