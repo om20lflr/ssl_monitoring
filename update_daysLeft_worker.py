@@ -142,11 +142,11 @@ def sendMail():
 
             html1 = (''.join(d))
 
-            html_body = html_body + html1 + html_close
+            html_body = html_body + html1
 
             print(html_body)
 
-    html = html_body
+    html = html_body + html_close
 
     part2 = MIMEText(html, 'html')
 
