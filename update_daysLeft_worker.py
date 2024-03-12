@@ -123,6 +123,7 @@ def sendMail():
                         
             """
     html_close = """\
+                        <br>
                         <p>Regards,<br>
                         OM</p>
                     </body>
