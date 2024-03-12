@@ -127,11 +127,10 @@ def sendMail():
             """
 
     domains = get_domains_from_db()
-    week_old = 14
-    d = []
 
     for domain in domains:
-
+        d = []
+        week_old = 14
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
 
