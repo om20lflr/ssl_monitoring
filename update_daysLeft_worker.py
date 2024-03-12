@@ -144,7 +144,7 @@ def sendMail():
 
             print(html_body)
 
-    html = html_body + html_close
+    html = html_body
 
     part2 = MIMEText(html, 'html')
 
