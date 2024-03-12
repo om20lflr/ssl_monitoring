@@ -112,7 +112,7 @@ def sendMail():
     msg['From'] = me
     msg['To'] = you
 
-    html1 = """\
+    html = """\
             <html>
                 <head></head>
                     <body>
@@ -125,7 +125,6 @@ def sendMail():
                     </body>
             </html>
             """
-    html = "hello, <br>{0}"
 
     domains = get_domains_from_db()
     week_old = 14
@@ -139,10 +138,10 @@ def sendMail():
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
 
-            html = ('\n'.join(d))
+            html = "ddd" + ('\n'.join(d))
 
             print(html)
-    html = html[2:]
+
     part2 = MIMEText(html, 'html')
 
     msg.attach(part2)
