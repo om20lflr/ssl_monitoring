@@ -87,7 +87,7 @@ def compute_days(Domain):
 
 def sendMail():
     me = "noreply-cpom@hotelstotsenberg"
-    you = "josephcvh@gmail.com"
+    you = "om20_os@hotelstotsenberg.com"
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = "Domain Name Expiry Alert"
