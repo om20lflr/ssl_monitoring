@@ -74,23 +74,6 @@ def update_days_in_db(days_left, name):
     conn.commit()
     conn.close()
 
-def get_daysleft_in_db():
-    conn = mysql.connector.connect(
-        host=SSL_DB_CRED['host'],
-        user=SSL_DB_CRED['user'],
-        password=SSL_DB_CRED['password'],
-        database=SSL_DB_CRED['database']
-    )
-
-    cursor = conn.cursor()
-    cursor.execute("SELECT name, days_left FROM ssl_monitoring_domainmodel WHERE days_left < '14' ")
-    #domains = [row[0] for row in cursor.fetchall()]
-    daysleft = [row[0] for row in cursor.fetchall()]
-    conn.close()
-
-    logging.info(f"days left from db: {daysleft}")
-    return daysleft
-
 
 def compute_days(Domain):
     value = daysLeft(expirationDate(Domain))
@@ -103,8 +86,7 @@ def compute_days(Domain):
 
 
 def sendMail():
-
-    me = "vhchong@snsoft.my"
+    me = "noreply-cpom@hotelstotsenberg"
     you = "josephcvh@gmail.com"
 
     msg = MIMEMultipart('alternative')
@@ -119,8 +101,7 @@ def sendMail():
                         <p>Hi Team,<br><br>
                         
                         Domain name below expiring soon:<br><br>
-                        
-                        
+                          
             """
     html_close = """\
                         <br>
@@ -137,33 +118,23 @@ def sendMail():
         week_old = 14
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
-
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
-
             html1 = (''.join(d))
-
             html_body = html_body + html1
-
             print(html_body)
 
     html = html_body + html_close
-
     part2 = MIMEText(html, 'html')
-
     msg.attach(part2)
 
     # Send the message via local SMTP server.
     mail = smtplib.SMTP('smtp.gmail.com', 587)
     mail.ehlo()
     mail.starttls()
-    mail.login('vhchong@snsoft.my', 'yzlw qeoy flvl zazd')
+    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
     mail.sendmail(me, you, msg.as_string())
     mail.quit()
-
-
-
-
 
 
 if __name__ == '__main__':
