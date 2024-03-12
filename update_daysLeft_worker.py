@@ -108,7 +108,7 @@ def sendMail():
     you = "josephcvh@gmail.com"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Domain Expiry Notice"
+    msg['Subject'] = "Domain Name Expiry Alert"
     msg['From'] = me
     msg['To'] = you
 
@@ -117,12 +117,14 @@ def sendMail():
                 <head></head>
                     <body>
                         <p>Hi Team,<br><br>
-                        <u>Notice</u><br>
+                        
                         Domain name below expiring soon:<br><br>
                         
                         
             """
     html_close = """\
+                        <p>Regards,<br>
+                        OM</p>
                     </body>
             </html>
     """
@@ -141,10 +143,11 @@ def sendMail():
             html1 = (''.join(d))
 
             html_body = html_body + html1
+            html_close = html_close + html_body
 
-            print(html_body)
+            print(html_close)
 
-    html = html_body
+    html = html_close
 
     part2 = MIMEText(html, 'html')
 
