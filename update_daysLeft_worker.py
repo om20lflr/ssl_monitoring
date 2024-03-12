@@ -117,14 +117,15 @@ def sendMail():
                 <head></head>
                     <body>
                         <p>Hi Team,<br><br>
-                        Reminder:<br>
-                        Please check if Domain listed below need to be renewed.<br><br>
-                        {0}
-
-                        </p>
+                        <u>Notice</u><br>
+                        Domain name below expiring soon:<br><br>
+                        
+                        
+            """
+    html_close = """\
                     </body>
             </html>
-            """
+    """
 
     domains = get_domains_from_db()
 
@@ -139,7 +140,7 @@ def sendMail():
 
             html1 = (''.join(d))
 
-            html_body = html_body + html1
+            html_body = html_body + html1 + html_close
 
             print(html_body)
 
