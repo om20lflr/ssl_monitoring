@@ -133,7 +133,7 @@ def sendMail():
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if v == "":
+    if html1 == "":
         return None
     else:
         # Send the message via local SMTP server.
