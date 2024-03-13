@@ -88,7 +88,7 @@ def compute_days(Domain):
 def sendMail():
     domainss = get_domains_from_db()
     days_left = compute_days(domainss)
-    week_old = 14
+    week_old = 35
     if int(days_left) <= int(week_old):
         today = datetime.today()
 
