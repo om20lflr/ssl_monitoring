@@ -128,7 +128,8 @@ def sendMail():
             print(d)
             html1 = (''.join(d))
             html_body = html_body + html1
-            print(html1)
+
+            #print(html_body)
 
     html = html_body + html_close
     #html = ""
@@ -136,13 +137,16 @@ def sendMail():
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+    if len(html) < 66:
+        return None
+    else:
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 
@@ -162,6 +166,8 @@ if __name__ == '__main__':
     days_left = compute_days(domains)
     if int(days_left) <= 14:
         sendMail()
+    else:
+        print("stop")
 
 
 
