@@ -137,7 +137,10 @@ def sendMail():
     html_body = html_body + html_mid
     html = html_body + html_close
 
-    if html_mid != "":
+    if html_mid == "":
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.quit()
+    else:
 
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
