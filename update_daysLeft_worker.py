@@ -118,7 +118,7 @@ def sendMail():
                         </body>
                 </html>
         """
-        #domains = get_domains_from_db()
+        domains = get_domains_from_db()
 
         for domain in domains:
             d = []
@@ -132,11 +132,11 @@ def sendMail():
                 html_body = html_body + html1
                 print(html1)
 
-        html = html_body + html_close
-        #html = ""
+            html = html_body + html_close
+            #html = ""
 
-        part2 = MIMEText(html, 'html')
-        msg.attach(part2)
+            part2 = MIMEText(html, 'html')
+            msg.attach(part2)
 
 
         # Send the message via local SMTP server.
