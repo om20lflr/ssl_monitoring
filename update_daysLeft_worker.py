@@ -122,7 +122,7 @@ def sendMail():
 
         for domain in domains:
             d = []
-            week_old = 14
+            week_old = 35
 
             days_left = compute_days(domain)
             if int(days_left) <= int(week_old):
@@ -139,13 +139,13 @@ def sendMail():
             msg.attach(part2)
 
 
-        # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.ehlo()
-        mail.starttls()
-        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, you, msg.as_string())
-        mail.quit()
+            # Send the message via local SMTP server.
+            mail = smtplib.SMTP('smtp.gmail.com', 587)
+            mail.ehlo()
+            mail.starttls()
+            mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+            mail.sendmail(me, you, msg.as_string())
+            mail.quit()
 
 
 
