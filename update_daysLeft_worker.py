@@ -11,7 +11,7 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
-from email.header import Header
+
 from django.conf import settings
 settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 
@@ -118,9 +118,9 @@ def sendMail():
     """
 
     domains = get_domains_from_db()
-    d = []
-    for domain in domains:
 
+    for domain in domains:
+        d = []
         week_old = 35
 
         days_left = compute_days(domain)
@@ -134,17 +134,20 @@ def sendMail():
 
     html = html_body + html_close
 
+    words = html.count("is expiring in")
+    if html == words:
 
-
-    part2 = MIMEText(html, 'html')
-    msg.attach(part2)
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+        part2 = MIMEText(html, 'html')
+        msg.attach(part2)
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
+    else:
+        return 0
 
 
 if __name__ == '__main__':
