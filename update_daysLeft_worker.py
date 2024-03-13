@@ -11,6 +11,7 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
+from email.header import Header
 from django.conf import settings
 settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 
@@ -91,7 +92,7 @@ def sendMail():
     you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "SSL Expiration Notice -                  " + str(today.strftime("%d/%m/%y"))
+    msg['Subject'] = Header("SSL Expiration Notice " + str(today.strftime("%d/%m/%y")))
     msg['From'] = me
     msg['To'] = you
 
@@ -124,21 +125,22 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
             print(html_body)
-        else:
-            pass
 
     html = html_body + html_close
 
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+    if html_body == "":
+        return None
+    else:
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 if __name__ == '__main__':
