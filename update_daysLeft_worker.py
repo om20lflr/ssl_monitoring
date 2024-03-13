@@ -133,8 +133,8 @@ def sendMail():
     """
 
     for i in ed:
-
-        html_body = html_body + ''.join(i)
+        edd = ''.join(i)
+        html_body = html_body + edd
         html = html_body + html_close
     #html = ""
 
