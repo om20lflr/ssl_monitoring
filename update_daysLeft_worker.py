@@ -132,21 +132,23 @@ def sendMail():
             </html>
     """
 
-    html_body = html_body + ''.join(ed)
-    html = html_body + html_close
+    for i in ed:
+
+        html_body = html_body + ''.join(i)
+        html = html_body + html_close
     #html = ""
 
-    part2 = MIMEText(html, 'html')
-    msg.attach(part2)
+        part2 = MIMEText(html, 'html')
+        msg.attach(part2)
 
 
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 
