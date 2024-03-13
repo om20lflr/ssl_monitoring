@@ -86,8 +86,8 @@ def compute_days(Domain):
 
 
 def sendMail():
-    domainss = get_domains_from_db()
-    days_left = compute_days(domainss)
+    domains = get_domains_from_db()
+    days_left = compute_days(domains)
     week_old = 35
     if int(days_left) <= int(week_old):
         today = datetime.today()
@@ -118,13 +118,13 @@ def sendMail():
                         </body>
                 </html>
         """
-        domains = get_domains_from_db()
+        #domains = get_domains_from_db()
 
         for domain in domains:
             d = []
             week_old = 14
 
-            days_left = compute_days(domain)
+            #days_left = compute_days(domain)
             if int(days_left) <= int(week_old):
                 d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
                 print(d)
