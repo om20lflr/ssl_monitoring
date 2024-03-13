@@ -124,7 +124,7 @@ def sendMail():
 
     for domain in domains:
         d = []
-        week_old = 14
+        week_old = 30
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
