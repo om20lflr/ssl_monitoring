@@ -108,8 +108,11 @@ def sendMail():
                         <span>
                           
             """
+    html_mid = """\
+                    <span> </span>
+    """
     html_close = """\
-                        </span>
+                        
                         <br>
                         <p>Regards,<br>
                         OM</p>
@@ -128,14 +131,13 @@ def sendMail():
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
             html1 = (''.join(d))
-            html_body = html_body + html1
+            html_mid = html_mid + html1
 
             #print(html_body)
-
+    html_body = html_body + html_mid
     html = html_body + html_close
 
-    words = html.count("is expiring in")
-    if html != words:
+    if html_mid != "":
 
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
