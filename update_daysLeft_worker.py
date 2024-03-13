@@ -92,7 +92,7 @@ def sendMail():
     you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = Header("SSL Expiration Notice " + str(today.strftime("%d/%m/%y")))
+    msg['Subject'] = Header(u"SSL Expiration Notice " + str(today.strftime("%d/%m/%y")))
     msg['From'] = me
     msg['To'] = you
 
