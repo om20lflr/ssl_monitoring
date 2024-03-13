@@ -123,10 +123,10 @@ def sendMail():
             print(d)
             html1 = (''.join(d))
             html_body = html_body + html1
-
+            print(html_body)
 
     html = html_body + html_close
-    print(html)
+
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
