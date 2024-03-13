@@ -135,7 +135,7 @@ def sendMail():
     html = html_body + html_close
 
     words = html.count("is expiring in")
-    if html == words:
+    if html != words:
 
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
