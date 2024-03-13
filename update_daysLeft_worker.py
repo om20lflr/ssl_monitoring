@@ -116,35 +116,35 @@ def sendMail():
                     </body>
             </html>
     """
-    if "is expiring in" in html_body:
-        print("stopped")
-    else:
-        domains = get_domains_from_db()
 
-        for domain in domains:
-            d = []
-            week_old = 14
+    domains = get_domains_from_db()
+    d = []
+    for domain in domains:
 
-            days_left = compute_days(domain)
-            if int(days_left) <= int(week_old):
-                d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
-                print(d)
-                html1 = (''.join(d))
-                html_body = html_body + html1
+        week_old = 35
 
-                #print(html_body)
+        days_left = compute_days(domain)
+        if int(days_left) <= int(week_old):
+            d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
+            print(d)
+            html1 = (''.join(d))
+            html_body = html_body + html1
 
-        html = html_body + html_close
+            #print(html_body)
 
-        part2 = MIMEText(html, 'html')
-        msg.attach(part2)
-        # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.ehlo()
-        mail.starttls()
-        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, you, msg.as_string())
-        mail.quit()
+    html = html_body + html_close
+
+
+
+    part2 = MIMEText(html, 'html')
+    msg.attach(part2)
+    # Send the message via local SMTP server.
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+    mail.sendmail(me, you, msg.as_string())
+    mail.quit()
 
 
 if __name__ == '__main__':
