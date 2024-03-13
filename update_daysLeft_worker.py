@@ -132,7 +132,7 @@ def sendMail():
             </html>
     """
 
-    html_body = html_body + list(ed)[0]
+    html_body = html_body + ''.join(ed)
     html = html_body + html_close
     #html = ""
 
