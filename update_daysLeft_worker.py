@@ -133,8 +133,10 @@ def sendMail():
 
     html = html_body + html_close
 
-    if html is not "":
+    if "is expiring in" in html:
+        print("stopped")
 
+    else:
 
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
@@ -145,10 +147,6 @@ def sendMail():
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
         mail.sendmail(me, you, msg.as_string())
         mail.quit()
-
-    else:
-        print("stopped")
-
 
 
 if __name__ == '__main__':
