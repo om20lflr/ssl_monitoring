@@ -100,7 +100,7 @@ def expiring_domain():
             print(html1)
             return html1
 
-def sendMail(request):
+def sendMail():
     ed = expiring_domain()
 
     today = datetime.today()
