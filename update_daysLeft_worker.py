@@ -129,10 +129,8 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
             print(html1)
-        else:
-            mail = smtplib.SMTP('smtp.gmail.com', 587)
-
-            mail.quit()
+        elif int(week_old) >= 14:
+            print("stopped")
 
     html = html_body + html_close
     #html = ""
