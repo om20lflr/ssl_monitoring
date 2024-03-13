@@ -129,15 +129,12 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
             print(html1)
-        elif int(week_old) >= 14:
-            print("stopped")
 
     html = html_body + html_close
     #html = ""
 
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
-
 
     # Send the message via local SMTP server.
     mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -161,8 +158,10 @@ if __name__ == '__main__':
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
 
-
-    sendMail()
+    domains = get_domains_from_db()
+    days_left = compute_days(domains)
+    if int(days_left) <= 14:
+        sendMail()
 
 
 
