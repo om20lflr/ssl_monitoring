@@ -134,13 +134,14 @@ def sendMail():
             html_mid = html_mid + html1
 
             #print(html_body)
-    html_body = html_body + html_mid
-    html = html_body + html_close
+
 
     if html_mid == "":
         mail = smtplib.SMTP('smtp.gmail.com', 587)
         mail.quit()
     else:
+        html_body = html_body + html_mid
+        html = html_body + html_close
 
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
