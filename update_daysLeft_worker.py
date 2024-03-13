@@ -84,8 +84,25 @@ def compute_days(Domain):
         logging.info("The value is not a string.")
         return '0'
 
+def expiring_domain():
+    domains = get_domains_from_db()
 
-def sendMail():
+    for domain in domains:
+        d = []
+        week_old = 14
+
+        days_left = compute_days(domain)
+        if int(days_left) <= int(week_old):
+            d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
+            print(d)
+            html1 = (''.join(d))
+
+            print(html1)
+            return html1
+
+def sendMail(request):
+    ed = expiring_domain()
+
     today = datetime.today()
 
     me = "noreply-cpom@hotelstotsenberg"
@@ -115,27 +132,14 @@ def sendMail():
             </html>
     """
 
-    domains = get_domains_from_db()
-
-    for domain in domains:
-        d = []
-        week_old = 14
-
-        days_left = compute_days(domain)
-        if int(days_left) <= int(week_old):
-            d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
-            print(d)
-            html1 = (''.join(d))
-            html_body = html_body + html1
-            print(html1)
-
+    html_body = html_body + ed
     html = html_body + html_close
     #html = ""
 
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if html_body == '':
+    if ed == '':
         return None
     else:
         # Send the message via local SMTP server.
@@ -145,6 +149,7 @@ def sendMail():
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
         mail.sendmail(me, you, msg.as_string())
         mail.quit()
+
 
 
 if __name__ == '__main__':
