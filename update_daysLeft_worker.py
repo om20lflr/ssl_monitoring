@@ -137,7 +137,7 @@ def sendMail():
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if len(html) < 70:
+    if len(html) <= 70:
         return 0
     else:
         # Send the message via local SMTP server.
