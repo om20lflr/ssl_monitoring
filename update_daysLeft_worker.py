@@ -91,7 +91,7 @@ def sendMail():
     you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "SSL Expiration Notice " + str(today.strftime("%d/%m/%y"))
+    msg['Subject'] = "SSL Expiration Notice  " + str(today.strftime("%d/%m/%y"))
     msg['From'] = me
     msg['To'] = you
 
@@ -123,9 +123,10 @@ def sendMail():
             print(d)
             html1 = (''.join(d))
             html_body = html_body + html1
-            print(html_body)
+
 
     html = html_body + html_close
+    print(html)
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
