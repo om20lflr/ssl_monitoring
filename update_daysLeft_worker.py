@@ -129,7 +129,7 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
         else:
-            return 0
+            return None
 
             #print(html_body)
 
