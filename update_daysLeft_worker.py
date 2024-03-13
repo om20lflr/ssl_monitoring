@@ -92,7 +92,7 @@ def sendMail():
     you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = Header(f"SSL Expiration Notice " + str(today.strftime("%d/%m/%y")), "utf-8")
+    msg['Subject'] = Header("SSL Expiration Notice " + str(today.strftime("%d/%m/%y")), "utf-8")
     msg['From'] = me
     msg['To'] = you
 
@@ -114,7 +114,7 @@ def sendMail():
     """
 
     domains = get_domains_from_db()
-    html1 = []
+
     for domain in domains:
         d = []
         week_old = 35
@@ -124,25 +124,21 @@ def sendMail():
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
             html1 = (''.join(d))
-
+            html_body = html_body + html1
             print(html1)
 
-    html_body = html_body + html1
     html = html_body + html_close
 
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if html1 == "":
-        return None
-    else:
-        # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.ehlo()
-        mail.starttls()
-        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, you, msg.as_string())
-        mail.quit()
+    # Send the message via local SMTP server.
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+    mail.sendmail(me, you, msg.as_string())
+    mail.quit()
 
 
 if __name__ == '__main__':
