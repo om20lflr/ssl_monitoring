@@ -4,17 +4,16 @@ import os
 import mysql.connector
 from ssl_monitoring_worker import expirationDate, daysLeft
 import base64
-from datetime import datetime, timedelta
-
+from datetime import datetime
 from django.core.mail import get_connection, send_mail
 from django.core.mail.message import EmailMessage
-from django.conf import settings
-settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
-
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
+from django.conf import settings
+settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
+
 
 
 
@@ -86,11 +85,13 @@ def compute_days(Domain):
 
 
 def sendMail():
+    today = datetime.today()
+
     me = "noreply-cpom@hotelstotsenberg"
-    you = "om@hotelstotsenberg.com"
+    you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Domain Name Expiry Alert"
+    msg['Subject'] = "SSL Expiration Notice" + str(today.strftime("%d/%m/%y"))
     msg['From'] = me
     msg['To'] = you
 
