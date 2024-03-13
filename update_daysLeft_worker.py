@@ -146,8 +146,7 @@ def sendMail():
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
         mail.sendmail(me, you, msg.as_string())
         mail.quit()
-    else:
-        return 0
+
 
 
 if __name__ == '__main__':
