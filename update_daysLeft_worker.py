@@ -137,8 +137,10 @@ def sendMail():
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if len(html) <= 30:
-        return 0
+    words = len(html.split())
+    if words <= 12:
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.quit()
     else:
         # Send the message via local SMTP server.
         mail = smtplib.SMTP('smtp.gmail.com', 587)
