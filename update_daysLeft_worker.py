@@ -129,7 +129,7 @@ def sendMail():
             html_body = html_body + html1
             print(html1)
         else:
-            print("All SSL domains are up to date.")
+            "All SSL domains are up to date."
 
     html = html_body + html_close
 
