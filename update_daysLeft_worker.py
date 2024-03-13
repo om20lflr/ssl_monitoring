@@ -92,7 +92,7 @@ def sendMail():
     you = "vhchong@snsoft.my"
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = Header("SSL Expiration Notice %s" + str(today.strftime("%d/%m/%y")), "utf-8")
+    msg['Subject'] = Header("SSL Expiration Notice " + str(today.strftime("%d/%m/%y")))
     msg['From'] = me
     msg['To'] = you
 
@@ -119,7 +119,7 @@ def sendMail():
 
     for domain in domains:
         d = []
-        week_old = 35
+        week_old = 14
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
@@ -128,6 +128,8 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
             print(html1)
+        else:
+            print("All SSL domains are up to date.")
 
     html = html_body + html_close
 
@@ -154,6 +156,7 @@ if __name__ == '__main__':
         logging.info(f"{domain}: {days_left} days left")
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
+
 
     sendMail()
 
