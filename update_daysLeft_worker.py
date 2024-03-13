@@ -128,23 +128,26 @@ def sendMail():
             print(d)
             html1 = (''.join(d))
             html_body = html_body + html1
-        else:
-            return None
 
             #print(html_body)
 
     html = html_body + html_close
 
+    if html is not "":
 
-    part2 = MIMEText(html, 'html')
-    msg.attach(part2)
-    # Send the message via local SMTP server.
-    mail = smtplib.SMTP('smtp.gmail.com', 587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-    mail.sendmail(me, you, msg.as_string())
-    mail.quit()
+
+        part2 = MIMEText(html, 'html')
+        msg.attach(part2)
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
+
+    else:
+        print("stopped")
 
 
 
