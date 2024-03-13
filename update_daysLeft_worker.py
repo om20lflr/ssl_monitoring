@@ -132,16 +132,17 @@ def sendMail():
             #print(html_body)
 
     html = html_body + html_close
-    #html = ""
-
-    part2 = MIMEText(html, 'html')
-    msg.attach(part2)
 
     words = len(html.split())
     if words <= 12:
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.quit()
+        print("stop")
+
+
+
+
     else:
+        part2 = MIMEText(html, 'html')
+        msg.attach(part2)
         # Send the message via local SMTP server.
         mail = smtplib.SMTP('smtp.gmail.com', 587)
         mail.ehlo()
