@@ -98,7 +98,7 @@ def expiring_domain():
             html1 = (''.join(d))
 
             print(html1)
-            return html1
+            #return html1
 
 def sendMail():
     ed = expiring_domain()
@@ -133,8 +133,7 @@ def sendMail():
     """
 
 
-    edd = list(ed)
-    html_body = html_body + str(edd)
+    html_body = html_body + str(ed)
     html = html_body + html_close
     #html = ""
 
