@@ -129,6 +129,10 @@ def sendMail():
             html1 = (''.join(d))
             html_body = html_body + html1
             print(html1)
+        else:
+            mail = smtplib.SMTP('smtp.gmail.com', 587)
+
+            mail.quit()
 
     html = html_body + html_close
     #html = ""
@@ -136,17 +140,14 @@ def sendMail():
     part2 = MIMEText(html, 'html')
     msg.attach(part2)
 
-    if html_body == '':
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.quit()
-    else:
-        # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.ehlo()
-        mail.starttls()
-        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, you, msg.as_string())
-        mail.quit()
+
+    # Send the message via local SMTP server.
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+    mail.sendmail(me, you, msg.as_string())
+    mail.quit()
 
 
 
