@@ -134,7 +134,7 @@ def sendMail():
 
             #print(html_body)
 
-    if len(html_mid) == '':
+    if len(html_mid) != '':
         print("hello. stopped.")
     else:
         print("hello. run.")
