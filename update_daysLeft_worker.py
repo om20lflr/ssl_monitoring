@@ -135,19 +135,19 @@ def sendMail():
     if html_mid == '':
         print("hello. stopped.")
     else:
-        print("hello. run.")
-        #html_body = html_body + html_mid
-        #html = html_body + html_close
+        #print("hello. run.")
+        html_body = html_body + html_mid
+        html = html_body + html_close
 
-        #part2 = MIMEText(html, 'html')
-        #msg.attach(part2)
+        part2 = MIMEText(html, 'html')
+        msg.attach(part2)
         # Send the message via local SMTP server.
-        #mail = smtplib.SMTP('smtp.gmail.com', 587)
-        #mail.ehlo()
-        #mail.starttls()
-        #mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        #mail.sendmail(me, you, msg.as_string())
-        #mail.quit()
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail.ehlo()
+        mail.starttls()
+        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.sendmail(me, you, msg.as_string())
+        mail.quit()
 
 
 
