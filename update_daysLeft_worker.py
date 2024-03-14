@@ -136,7 +136,7 @@ def sendMail():
             #print(html_body)
 
 
-    if len(html_mid) == 0:
+    if not html_mid:
 
         html_body = html_body + html_mid
         html = html_body + html_close
