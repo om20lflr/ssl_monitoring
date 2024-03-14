@@ -136,9 +136,8 @@ def sendMail():
             #print(html_body)
 
 
-    if html_mid == "":
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
-        mail.quit()
+    if len(html_mid) == 0:
+        print("hello. stopped.")
     else:
         html_body = html_body + html_mid
         html = html_body + html_close
