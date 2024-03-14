@@ -109,7 +109,7 @@ def sendMail():
                           
             """
     html_mid = """\
-                    <span> </span>
+                    
     """
     html_close = """\
                         
@@ -121,7 +121,6 @@ def sendMail():
     """
 
     domains = get_domains_from_db()
-
     for domain in domains:
         d = []
         week_old = 14
