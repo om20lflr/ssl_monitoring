@@ -135,8 +135,9 @@ def sendMail():
 
             #print(html_body)
 
-
-    if html_mid != " ":
+    if len(html_mid) == 0:
+        print("hello. stopped.")
+    else:
         html_body = html_body + html_mid
         html = html_body + html_close
 
@@ -149,8 +150,6 @@ def sendMail():
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
         mail.sendmail(me, you, msg.as_string())
         mail.quit()
-    else:
-        print("hello. stopped.")
 
 
 
