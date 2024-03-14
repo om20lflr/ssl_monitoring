@@ -108,9 +108,7 @@ def sendMail():
                         <span>
                           
             """
-    html_mid = """\
-                    
-    """
+    html_mid = ""
     html_close = """\
                         
                         <br>
@@ -134,7 +132,7 @@ def sendMail():
 
             #print(html_body)
 
-    if list(html_mid) == '':
+    if html_mid == '':
         print("hello. stopped.")
     else:
         print("hello. run.")
