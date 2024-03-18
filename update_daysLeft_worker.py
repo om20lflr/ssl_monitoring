@@ -124,6 +124,7 @@ def sendMail():
         if int(days_left) <= int(week_old):
             logging.info("Auto_email: Start check days left")
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
+            logging.info("Auto_email: List of domain and days left")
             print(d)
             html1 = (''.join(d))
             html_mid = html_mid + html1
@@ -132,6 +133,7 @@ def sendMail():
 
     if html_mid == '':
         print("hello. stopped.")
+        logging.info("Auto_email: No domain need to be renew. No email sent out.")
     else:
         #print("hello. run.")
         html_body = html_body + html_mid
