@@ -84,14 +84,11 @@ def compute_days(Domain):
         logging.info("The value is not a string.")
         return '0'
 
-
 def sendMail():
-    #days_left = compute_days(domain)
-    #if int(days_left) <= int(week_old):
     today = datetime.today()
 
     me = "noreply-cpom@hotelstotsenberg"
-    you = "om@hotelstotsenberg.com" #om@hotelstotsenberg.com
+    you = "vhchong@snsoft.my" #om@hotelstotsenberg.com
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f"SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
@@ -125,6 +122,7 @@ def sendMail():
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
+            logging.info("Auto_email: Start check days left")
             d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
             print(d)
             html1 = (''.join(d))
@@ -150,7 +148,6 @@ def sendMail():
         mail.quit()
 
 
-
 if __name__ == '__main__':
     domains = get_domains_from_db()
 
@@ -162,7 +159,6 @@ if __name__ == '__main__':
         logging.info(f"{domain}: {days_left} days left")
         print(f"{domain}: {days_left} days left")
         update_days_in_db(days_left, domain)
-
 
     sendMail()
 
