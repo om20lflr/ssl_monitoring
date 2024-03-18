@@ -118,7 +118,7 @@ def sendMail():
     domains = get_domains_from_db()
     for domain in domains:
         d = []
-        week_old = 14
+        week_old = 30
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
@@ -136,6 +136,7 @@ def sendMail():
         logging.info("Auto_email: No domain need to be renew. No email sent out.")
     else:
         #print("hello. run.")
+        logging.info("Auto_email: Domain need to renew. Email processing.")
         html_body = html_body + html_mid
         html = html_body + html_close
 
