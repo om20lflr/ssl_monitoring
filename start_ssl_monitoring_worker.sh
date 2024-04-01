@@ -1,6 +1,6 @@
 #!/bin/bash
 
-app_name="ssl_monitoring_worker"
+app_name="ssl_monitoring"
 log_dir="/var/log/cp_argus/${app_name}"
 log_path="${log_dir}/${app_name}_worker.log"
 
