@@ -141,8 +141,14 @@ def sendMail():
         mail = smtplib.SMTP('smtp.gmail.com', 587)
         mail.ehlo()
         mail.starttls()
+        print("Connecting to Gmail...")
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, recipients, msg.as_string())
+        print("✅ Logged in to Gmail")
+        try:
+            mail.sendmail(me, recipients, msg.as_string())
+            print("✅ Email sent successfully")
+        except Exception as e:
+            print(f"❌ Failed to send email: {e}")
         mail.quit()
 
 
