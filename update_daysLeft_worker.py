@@ -136,11 +136,11 @@ def sendMail():
         part2 = MIMEText(html, 'html')
         msg.attach(part2)
         # Send the message via local SMTP server.
-        mail = smtplib.SMTP('smtp.gmail.com', 587)
+        mail = smtplib.SMTP('smtp.larksuite.com', 587)
         mail.ehlo()
         mail.starttls()
         print("Connecting to Gmail...")
-        mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
+        mail.login('noreply-cpom@hotelstotsenberg.com', '3SMJYE2ycqpSnl1d')
         print("✅ Logged in to Gmail")
         try:
             mail.sendmail(me, recipients, msg.as_string())
