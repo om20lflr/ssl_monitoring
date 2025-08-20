@@ -88,12 +88,12 @@ def sendMail():
     today = datetime.today()
 
     me = "noreply-cpom@hotelstotsenberg"
-    you = "om@hotelstotsenberg.com" #om@hotelstotsenberg.com
+    recipients = ["om@hotelstotsenberg.com", "sre-platform@snsoft.my"]
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f"SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
     msg['From'] = me
-    msg['To'] = you
+    msg['To'] = ", ".join(recipients)
 
     html_body = """\
             <html>
@@ -118,7 +118,7 @@ def sendMail():
     domains = get_domains_from_db()
     for domain in domains:
         d = []
-        week_old = 14
+        week_old = 4
 
         days_left = compute_days(domain)
         if int(days_left) <= int(week_old):
@@ -142,7 +142,7 @@ def sendMail():
         mail.ehlo()
         mail.starttls()
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
-        mail.sendmail(me, you, msg.as_string())
+        mail.sendmail(me, recipients, msg.as_string())
         mail.quit()
 
 
