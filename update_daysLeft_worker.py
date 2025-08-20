@@ -87,7 +87,7 @@ def compute_days(Domain):
 def sendMail():
     today = datetime.today()
 
-    me = "noreply-cpom@hotelstotsenberg"
+    me = "noreply-cpom@hotelstotsenberg.com"
     recipients = ["om@hotelstotsenberg.com", "sre-platform@snsoft.my" , "lyden.faye@snsofttech.ph"]
 
     msg = MIMEMultipart('alternative')
