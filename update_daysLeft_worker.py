@@ -91,7 +91,7 @@ def sendMail():
     recipients = ["lyden.faye@snsofttech.ph", "om@hotelstotsenberg.com", "sre-platform@snsoft.my"]
 
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = f"TEST-ONLY SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
+    msg['Subject'] = f"SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
     msg['From'] = me
     msg['To'] = ", ".join(recipients)
 
@@ -99,7 +99,7 @@ def sendMail():
             <html>
                 <head></head>
                     <body>
-                        <p>Hi Team,<br><br>
+                        <p>Hi OSE and SRE-Platform Team,<br><br>
                         
                         Please check the SSL of the following domain(s):<br><br>
                         <span>
