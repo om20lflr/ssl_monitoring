@@ -117,15 +117,13 @@ def sendMail():
 
     domains = get_domains_from_db()
     for domain in domains:
-        d = []
-        week_old = 99
-
+        week_old = 14
         days_left = compute_days(domain)
+
         if int(days_left) <= int(week_old):
-            d.append("{0} is expiring in {1} days.<br>".format(domain, days_left))
-            print(d)
-            html1 = (''.join(d))
-            html_mid = html_mid + html1
+            html1 = f"{domain} is expiring in {days_left} days.<br>"
+            print(html1)  # prints a string, no []
+            html_mid += html1
 
     if html_mid == '':
         print("hello. stopped.")
