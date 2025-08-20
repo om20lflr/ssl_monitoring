@@ -22,7 +22,7 @@ settings.configure(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend')
 SSL_DB_CRED = {
     'host': '54.169.154.249',
     'user': "{}".format(base64.b64decode("YXJndXNjcHVzZXI=").decode('utf-8')),
-    'password': "{}".format(base64.b64decode("WVhKbmRYTmZZM0JoY21kMWMyTndkWE5sY2c9PQ==").decode('utf-8')),
+    'password': "{}".format(base64.b64decode("VkExOTEzd20=").decode('utf-8')),
     'database': "{}".format(base64.b64decode("YXJndXNfY3A=").decode('utf-8'))
 }
 
