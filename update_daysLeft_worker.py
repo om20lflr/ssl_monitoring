@@ -88,7 +88,7 @@ def sendMail():
     today = datetime.today()
 
     me = "noreply-cpom@hotelstotsenberg.com"
-    recipients = ["lyden.faye@snsofttech.ph"]
+    recipients = ["lyden.faye@snsofttech.ph", "om@hotelstotsenberg.com", "sre-platform@snsoft.my"]
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f"TEST-ONLY SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
@@ -143,7 +143,7 @@ def sendMail():
         mail.login('noreply-cpom@hotelstotsenberg.com', 'zfuq egca fewo dwul')
         print("✅ Logged in to Gmail")
         try:
-            mail.sendmail(me, recipients, msg.as_string())
+            mail.sendmail(me, ", ".join(recipients), msg.as_string())
             print("✅ Email sent successfully")
         except Exception as e:
             print(f"❌ Failed to send email: {e}")
