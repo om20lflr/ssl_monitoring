@@ -88,7 +88,7 @@ def sendMail():
     today = datetime.today()
 
     me = "noreply-cpom@hotelstotsenberg.com"
-    recipients = ["lyden.faye@snsofttech.ph", "om@hotelstotsenberg.com", "sre-platform@snsoft.my"]
+    recipients = ["lyden.faye@snsofttech.ph", "om@hotelstotsenberg.com", "sre-platform@snsoft.my", "it10@hotelstotsenberg.com" ]
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f"TEST-ONLY SSL Expiration Notice - {today.strftime('%d/%m/%y')}"
